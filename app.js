@@ -25,4 +25,9 @@ document.getElementById('recalculate').addEventListener('click', () => {
 document.getElementById('prev').addEventListener('click', () => {/* 前月処理 */ });
 document.getElementById('next').addEventListener('click', () => {/* 翌月処理 */ });
 
+// iOS判定してメッセージを表示
+//if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+  document.getElementById('iosPrompt').style.display = 'block';
+//}
+
 renderTable();

@@ -10,20 +10,26 @@
 <body>
     <h1>35 ice cream -MH-</h1>
 
+    <div id="iosPrompt" style="display:none;" class="iosPrompt">
+        iPhoneの場合、Safariの共有ボタンから「ホーム画面に追加」を選んでください
+    </div>
+
     <div id="month">
         <button id="prev">前月</button>
         <span id="currentMonth">2025年1月</span>
         <button id="next">翌月</button>
     </div>
 
-    <table id="budgetTable">
-        <thead>
-            <tr><th>カテゴリ</th><th>金額</th></tr>
-        </thead>
-        <tbody id="tableBody">
-            <!-- JSで行を追加 -->
-        </tbody>
-    </table>
+    <div class="budgetTable">
+        <table id="budgetTable">
+            <thead>
+                <tr><th>カテゴリ</th><th>金額</th></tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- JSで行を追加 -->
+            </tbody>
+        </table>
+    </div>
 
     <button id="recalculate">再計算</button>
 
