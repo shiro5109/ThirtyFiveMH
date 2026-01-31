@@ -3,7 +3,7 @@
 }
 
 .version {
-	margin-top: 1em; /* 1s•ª‚­‚ç‚¢‚Ì‹ó‚« */
+	margin-top: 1em; /* 1ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ç‚¢ï¿½Ì‹ï¿½ */
 }
 
 .iosPrompt{
@@ -11,6 +11,17 @@
 	margin-bottom: 1em;
 }
 
-.month{
+#month{
 	margin-top: 1em;
+	text-align: center;
+}
+
+.body{
+	background-color: mediumpurple;
+}
+
+#calendarTable th,#calendarTable td {
+    border: 1px solid #333;
+    padding: 10px;
+	background-color: white;
 }

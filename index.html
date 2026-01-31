@@ -8,35 +8,66 @@
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <h1>35 ice cream -MH-</h1>
+    <div class="body">
+        <h1>35 ice cream -MH-</h1>
 
-    <div id="iosPrompt" style="display:none;" class="iosPrompt">
-        iPhoneの場合、Safariの共有ボタンから「ホーム画面に追加」を選んでください
+        <div>
+            <table id="modeSwitch">
+                <thead>
+                    <tr>
+                        <th><button>カレンダー</button></th>
+                        <th><button>変動費履歴</button></th>
+                        <th><button>固定費</button></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="iosPrompt" style="display:none;" class="iosPrompt">
+            iPhoneの場合、Safariの共有ボタンから「ホーム画面に追加」を選んでください
+        </div>
+
+        <div id="month">
+            <button id="prev">前月</button>
+            <span id="currentMonth">2025年1月</span>
+            <button id="next">翌月</button>
+        </div>
+
+        <div>
+            <table id="calendarTable">
+                <thead>
+                    <tr><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th></tr>
+                </thead>
+                <tbody id="calendarBody"><!--js--></tbody>
+            </table>
+        </div>
+
+        <div class="budgetTable">
+            <table id="budgetTable">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>週1</th>
+                        <th>週2</th>
+                        <th>週3</th>
+                        <th>週4</th>
+                        <th>週5</th>
+                        <th>計</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- JSで行を追加 -->
+                </tbody>
+            </table>
+        </div>
+
+        <button id="recalculate">再計算</button>
+
+        <div class="version">
+            ver 0.101
+        </div>
+
     </div>
-
-    <div id="month">
-        <button id="prev">前月</button>
-        <span id="currentMonth">2025年1月</span>
-        <button id="next">翌月</button>
-    </div>
-
-    <div class="budgetTable">
-        <table id="budgetTable">
-            <thead>
-                <tr><th>カテゴリ</th><th>金額</th></tr>
-            </thead>
-            <tbody id="tableBody">
-                <!-- JSで行を追加 -->
-            </tbody>
-        </table>
-    </div>
-
-    <button id="recalculate">再計算</button>
-
-    <div class="version">
-        ver 0.101
-    </div>
-
     <script src="./app.js"></script>
 </body>
 </html>
