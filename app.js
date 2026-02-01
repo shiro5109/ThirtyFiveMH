@@ -1,7 +1,44 @@
 ﻿// @ts-check
 
+class Payment{
+    /**
+     * @param {number} amount
+     * @param {Date} date
+     */
+    constructor(amount, date){
+        this.amount = amount;
+        this.date = date;
+    }
+}
+
+class Data{
+    /**
+     * @type {Payment[]}
+     */
+    payments=[];
+
+    /**
+     * @param {Payment} payment
+     */
+    addPayment(payment){
+        this.payments.push(payment);
+    }
+
+    /**
+     * @param {Date} date
+     * @return {number}
+     */
+    CalcTotalPaymentOf(date){
+        return this.payments
+            .filter(p => p.date.toDateString() === date.toDateString())
+            .reduce((sum, p) => sum + p.amount, 0);
+    }
+}
+
 const categories = ["食費", "日用品", "ガソリン"];
 let budget = [0, 0, 0];
+
+const data = new Data();
 
 function renderTable() {
     const tbody = document.getElementById('tableBody');
@@ -23,7 +60,33 @@ function renderTable() {
 }
 
 /**
- * @param {any[]} dates
+ * @param {Date} date
+ */
+function onCellTapped(date) {
+    const input = prompt(
+        `金額を入力してください`
+    );
+
+    if (input === null) {
+        // キャンセル
+        return;
+    }
+
+    const amount = Number(input);
+
+    if (isNaN(amount)) {
+        alert("数値を入力してください");
+        return;
+    }
+
+    console.log("入力された金額:", amount);
+    const payment = new Payment(amount,date);
+    data.addPayment(payment);
+    render();
+}
+
+/**
+ * @param {(Date | null)[]} dates
  */
 function calendarTable(dates){
     const tbody=document.getElementById('calendarBody');
@@ -36,10 +99,21 @@ function calendarTable(dates){
         for(let col=0;col<7;col++){
             const td=document.createElement('td');
             if(dates[cellCounter]!=null){
-                td.textContent=dates[cellCounter].getDate().toString();
+                const date=dates[cellCounter];
+                // @ts-ignore
+                td.innerHTML=date.getDate().toString();
                 //TODO: 最初の日および1日には月表示を追加
+                // @ts-ignore
+                const totalPayment= data.CalcTotalPaymentOf(date);
+                if(totalPayment>0){
+                    td.innerHTML+="<br>"+totalPayment+"円";
+                }
+                td.addEventListener('click', () => {
+                    // @ts-ignore
+                    onCellTapped(date);
+                });
             }else{
-                td.textContent="";
+                td.innerHTML="";
             }
 //            td.textContent="aaa";
             tr.appendChild(td);
@@ -98,6 +172,7 @@ document.getElementById('next').addEventListener('click', () => {calendar35.mont
   document.getElementById('iosPrompt').style.display = 'block';
 //}
 
+render();
 
 function render(){
     let firstDay31=calendar35.CalcFirstDate();
@@ -129,4 +204,3 @@ function render(){
     //TODO: 正式には2月1日ならcalendar35.month=1となったほうが親切
 }
 
-render();
