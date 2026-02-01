@@ -12,8 +12,8 @@ function renderTable() {
         const tdCat = document.createElement('td');
         tdCat.textContent = cat;
         const tdVal = document.createElement('td');
-        tdVal.textContent = budget[i];
-        tdVal.contentEditable = true; // 編集可能
+        tdVal.textContent = budget[i].toString();
+        tdVal.contentEditable = 'true'; // 編集可能
         tdVal.addEventListener('input', () => budget[i] = Number(tdVal.textContent));
         tr.appendChild(tdCat);
         tr.appendChild(tdVal);
@@ -69,6 +69,10 @@ class Calendar35{
     }
 }
 
+/**
+ * @param {Date} date1
+ * @param {Date} date2
+ */
 function dateDiffInDays(date1, date2){
     const _MS_PER_DAY=1000*60*60*24;
     const utc1=Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
