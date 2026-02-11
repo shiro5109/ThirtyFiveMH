@@ -5,30 +5,12 @@ import { calendarTable } from "./calendarTable.1.js";
 import { Data } from "./Data.js";
 import { dateDiffInDays } from "./dateDiffInDays.1.js";
 import { Payment } from "./Payment.1.js";
+import { renderTable } from "./renderTable.2.js";
 
-const categories = ["食費", "日用品", "ガソリン"];
+export const categories = ["食費", "日用品", "ガソリン"];
 let budget = [0, 0, 0];
 
 export const data = new Data();
-
-function renderTable() {
-    const tbody = document.getElementById('tableBody');
-    // @ts-ignore
-    tbody.innerHTML = "";
-    categories.forEach((cat, i) => {
-        const tr = document.createElement('tr');
-        const tdCat = document.createElement('td');
-        tdCat.textContent = cat;
-        const tdVal = document.createElement('td');
-        tdVal.textContent = budget[i].toString();
-        tdVal.contentEditable = 'true'; // 編集可能
-        tdVal.addEventListener('input', () => budget[i] = Number(tdVal.textContent));
-        tr.appendChild(tdCat);
-        tr.appendChild(tdVal);
-        // @ts-ignore
-        tbody.appendChild(tr);
-    });
-}
 
 /**
  * @param {Date} date
@@ -101,7 +83,7 @@ function render(){
         dates.push(null);
     }
 
-    renderTable();
+    renderTable(budget,categories,document);
     calendarTable(dates,onCellTapped,document,data);
 
     // @ts-ignore

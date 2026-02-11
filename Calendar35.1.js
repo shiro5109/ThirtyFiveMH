@@ -15,11 +15,11 @@ export class Calendar35 {
         return date31;
     }
 
-    createDateArray() {
-        let firstDay31 = calendar35.CalcFirstDate();
-        console.log(`firstDay31: ${firstDay31}`);
+    createDateArray(today) {
+        let firstDay31 = this.CalcFirstDate();
+//        console.log(`firstDay31: ${firstDay31}`);
         let totalDays = dateDiffInDays(new Date(today.getFullYear(), 0, 1), firstDay31) + 1;
-        console.log(`totalDays: ${totalDays}`);
+  //      console.log(`totalDays: ${totalDays}`);
 
         const dates = [];
 
