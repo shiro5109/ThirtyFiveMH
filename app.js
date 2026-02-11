@@ -2,7 +2,7 @@
 
 import { Calendar35 } from "./js/logic/Calendar35.1.js";
 import { Data } from "./js/logic/Data.js";
-import { onCellTapped } from "./_js/onCellTapped.js";
+import { onCellTapped } from "./js/onCellTapped.js";
 import { render } from "./js/render.js";
 
 
