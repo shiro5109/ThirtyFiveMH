@@ -1,8 +1,9 @@
+import { render } from "./render.js";
+
 /**
  * @param {(Date | null)[]} dates
  */
-// @ts-ignore
-export function calendarTable(dates, onCellTapped2,document,data) {
+export function calendarTable(dates, onCellTapped2,document,data,today,budget,categories,calendar35) {
     const tbody = document.getElementById('calendarBody');
     // @ts-ignore
     tbody.innerHTML = "";
@@ -25,6 +26,7 @@ export function calendarTable(dates, onCellTapped2,document,data) {
                 td.addEventListener('click', () => {
                     // @ts-ignore
                     onCellTapped2(date,data);
+                    render(data,today,calendar35,budget,document,categories,onCellTapped2);
                 });
             } else {
                 td.innerHTML = "";
