@@ -1,6 +1,6 @@
-import { calendarTable } from "./calendarTable.1.js";
-import { dateDiffInDays } from "./logic/dateDiffInDays.1.js";
-import { renderTable } from "./renderTable.2.js";
+import { calendarTable } from "../js/calendarTable.1.js";
+import { dateDiffInDays } from "../js/logic/dateDiffInDays.1.js";
+import { renderTable } from "../js/renderTable.2.js";
 
 export function render(data, today, calendar35, budget, document,categories,onCellTapped) {
     let firstDay31 = calendar35.CalcFirstDate();

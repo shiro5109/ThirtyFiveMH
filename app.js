@@ -1,9 +1,9 @@
 ﻿// @ts-check
 
-import { Calendar35 } from "./Calendar35.1.js";
-import { Data } from "./Data.js";
-import { onCellTapped } from "./onCellTapped.js";
-import { render } from "./render.js";
+import { Calendar35 } from "./js/logic/Calendar35.1.js";
+import { Data } from "./js/logic/Data.js";
+import { onCellTapped } from "./_js/onCellTapped.js";
+import { render } from "./js/render.js";
 
 
 export const categories = ["食費", "日用品", "ガソリン"];

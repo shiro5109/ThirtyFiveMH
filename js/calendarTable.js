@@ -1,1 +1,1 @@
-import { onCellTapped } from "./onCellTapped";
+import { onCellTapped } from "../_js/onCellTapped";

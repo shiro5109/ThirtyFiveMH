@@ -1,4 +1,4 @@
-import { Payment } from "./Payment.1.js";
+import { Payment } from "../js/logic/Payment.1.js";
 import { render } from "./render.js";
 
 /**
