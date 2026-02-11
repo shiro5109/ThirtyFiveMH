@@ -21,6 +21,7 @@
 	max-width: 900px;
 	margin: 0 auto;
 	text-align: center;
+	table-layout: fixed;
 }
 
 table#calendarTable{
@@ -39,4 +40,5 @@ table#calendarTable th, table#calendarTable td {
 	padding: 5px;
 	background-color: white;
 	font-size: 12px;
+	width: 14.28%;
 }
