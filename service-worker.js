@@ -2,7 +2,7 @@ const CACHE_NAME = "myapp-cache-v1";
 const urlsToCache = [
     "./",
     "./index.html",
-    "./style.css",
+    "./style0105.css",
     "./app.js",
     "./manifest.json"
 ];
