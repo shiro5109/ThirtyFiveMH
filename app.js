@@ -50,12 +50,10 @@ document.getElementById('prev').addEventListener('click', () => {calendar35.mont
 document.getElementById('next').addEventListener('click', () => {calendar35.month++; render();});
 
 // iOS判定してメッセージを表示
-//if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
 if(window.matchMedia("(display-mode: standalone)").matches===false){
   // @ts-ignore
   document.getElementById('iosPrompt').style.display = 'block';
 }
-//}
 
 render(data,today,calendar35,budget,document,categories,onCellTapped);
 
