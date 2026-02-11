@@ -24,7 +24,7 @@ export function calendarTable(dates, onCellTapped2,document,data) {
                 }
                 td.addEventListener('click', () => {
                     // @ts-ignore
-                    onCellTapped2(date);
+                    onCellTapped2(date,data);
                 });
             } else {
                 td.innerHTML = "";
