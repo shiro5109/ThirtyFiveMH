@@ -11,36 +11,37 @@ let budget = [0, 0, 0];
 
 // @ts-ignore
 document.getElementById('recalculate').addEventListener('click', () => {
-    alert("合計: " + budget.reduce((a, b) => a + b, 0));
+  alert("合計: " + budget.reduce((a, b) => a + b, 0));
 });
 
 // @ts-ignore
-document.getElementById('prev').addEventListener('click', () => {calendar35.month--; render();});
+document.getElementById('prev').addEventListener('click', () => { calendar35.month--; render(); });
 // @ts-ignore
-document.getElementById('next').addEventListener('click', () => {calendar35.month++; render();});
+document.getElementById('next').addEventListener('click', () => { calendar35.month++; render(); });
 
 // iOS判定してメッセージを表示
-if(window.matchMedia("(display-mode: standalone)").matches===false){
+if (window.matchMedia("(display-mode: standalone)").matches === false) {
   // @ts-ignore
   document.getElementById('iosPrompt').style.display = 'block';
 }
 
-let data = new Data();
-let error=false;
-let string=localStorage.getItem("data");
-if(string!=null){
-  const data2 = JSON.parse(string);
-  if(data2==null){
-    alert("データの読み込みに失敗しました。");
-    error=true;
-  }else{
-    data=Data.fromJSON(data2);
+main();
+
+function main() {
+  let data = new Data();
+  let string = localStorage.getItem("data");
+  if (string != null) {
+    const data2 = JSON.parse(string);
+    if (data2 == null) {
+      alert("データの読み込みに失敗しました。");
+      return;
+    }
+
+    data = Data.fromJSON(data2);
   }
-}
 
-if(error==false){
-  const today=new Date();
-  const calendar35=new Calendar35(today.getFullYear(), today.getMonth() + 1);
+  const today = new Date();
+  const calendar35 = new Calendar35(today.getFullYear(), today.getMonth() + 1);
 
-  render(data,calendar35,budget,document,categories,onCellTapped);
+  render(data, calendar35, budget, document, categories, onCellTapped);
 }
