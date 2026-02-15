@@ -5,8 +5,9 @@ import { renderTable } from "./renderTable.2.js";
 /**
  * @param {Data} data
  */
-export function render(data, calendar35, budget,categories,onCellTapped) {
-//    const obj = { date: "2026-03-08", amount: 1000 };
+export function render(data, calendar35, onCellTapped) {
+    const categories = ["食費", "日用品", "ガソリン"];
+    let budget = [0, 0, 0];
 
     let firstDay31 = calendar35.CalcFirstDate();
     console.log(`firstDay31: ${firstDay31}`);

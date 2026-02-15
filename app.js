@@ -6,6 +6,7 @@ import { onCellTapped } from "./js/onCellTapped.js";
 import { render } from "./js/render.js";
 import {closeDialog} from "./js/closeDialog.js";
 import { populateExpenseTypes } from "./js/populateExpenseTypes.js";
+import { DialogOverLay } from "./js/DialogOverLay.js";
 
 main();
 
@@ -14,13 +15,10 @@ function main() {
     populateExpenseTypes();
   });
 
-  const categories = ["食費", "日用品", "ガソリン"];
-  let budget = [0, 0, 0];
-
   // @ts-ignore
-  document.getElementById('recalculate').addEventListener('click', () => {
-    alert("合計: " + budget.reduce((a, b) => a + b, 0));
-  });
+  // document.getElementById('recalculate').addEventListener('click', () => {
+  //   alert("合計: " + budget.reduce((a, b) => a + b, 0));
+  // });
 
   // @ts-ignore
   document.getElementById('prev').addEventListener('click', () => { calendar35.month--; render(); });
@@ -33,20 +31,9 @@ function main() {
     document.getElementById('iosPrompt').style.display = 'block';
   }
 
-  // @ts-ignore
-  document.getElementById("saveBtn").addEventListener("click", () => {
-      // @ts-ignore
-      const amount = Number(document.getElementById("amountInput").value);
-      // @ts-ignore
-      const type = document.getElementById("typeSelect").value;
+  let dialog=new DialogOverLay();
+  dialog.InitializeSaveButton();
 
-      if (!amount || amount <= 0) {
-          alert("正しい金額を入力してください");
-          return;
-      }
-
-      console.log(amount, type);
-  });
   // @ts-ignore
   document.getElementById("cancelBtn").addEventListener("click", closeDialog);
   
@@ -67,5 +54,5 @@ function main() {
   const today = new Date();
   const calendar35 = new Calendar35(today.getFullYear(), today.getMonth() + 1);
 
-  render(data, calendar35, budget, categories, onCellTapped);
+  render(data, calendar35, onCellTapped);
 }

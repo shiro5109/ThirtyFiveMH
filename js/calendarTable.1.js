@@ -3,7 +3,7 @@ import { render } from "./render.js";
 /**
  * @param {(Date | null)[]} dates
  */
-export function calendarTable(dates, onCellTapped2,data,budget,categories,calendar35) {
+export function calendarTable(dates, onCellTapped2,data,calendar35) {
     const tbody = document.getElementById('calendarBody');
     // @ts-ignore
     tbody.innerHTML = "";
@@ -28,7 +28,7 @@ export function calendarTable(dates, onCellTapped2,data,budget,categories,calend
 //                    onCellTapped2(date,data);
                     document.getElementById("dialogOverlay").classList.remove("hidden");
                     localStorage.setItem("data", JSON.stringify(data.toJSON()));
-                    render(data,calendar35,budget,categories,onCellTapped2);
+                    render(data,calendar35,onCellTapped2);
                 });
             } else {
                 td.innerHTML = "";
