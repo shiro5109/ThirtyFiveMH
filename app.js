@@ -42,5 +42,5 @@ if(error==false){
   const today=new Date();
   const calendar35=new Calendar35(today.getFullYear(), today.getMonth() + 1);
 
-  render(data,today,calendar35,budget,document,categories,onCellTapped);
+  render(data,calendar35,budget,document,categories,onCellTapped);
 }

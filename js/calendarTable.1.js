@@ -3,7 +3,7 @@ import { render } from "./render.js";
 /**
  * @param {(Date | null)[]} dates
  */
-export function calendarTable(dates, onCellTapped2,document,data,today,budget,categories,calendar35) {
+export function calendarTable(dates, onCellTapped2,document,data,budget,categories,calendar35) {
     const tbody = document.getElementById('calendarBody');
     // @ts-ignore
     tbody.innerHTML = "";
@@ -27,7 +27,7 @@ export function calendarTable(dates, onCellTapped2,document,data,today,budget,ca
                     // @ts-ignore
                     onCellTapped2(date,data);
                     localStorage.setItem("data", JSON.stringify(data.toJSON()));
-                    render(data,today,calendar35,budget,document,categories,onCellTapped2);
+                    render(data,calendar35,budget,document,categories,onCellTapped2);
                 });
             } else {
                 td.innerHTML = "";

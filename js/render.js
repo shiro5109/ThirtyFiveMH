@@ -5,12 +5,12 @@ import { renderTable } from "./renderTable.2.js";
 /**
  * @param {Data} data
  */
-export function render(data, today, calendar35, budget, document,categories,onCellTapped) {
+export function render(data, calendar35, budget, document,categories,onCellTapped) {
 //    const obj = { date: "2026-03-08", amount: 1000 };
 
     let firstDay31 = calendar35.CalcFirstDate();
     console.log(`firstDay31: ${firstDay31}`);
-    let totalDays = dateDiffInDays(new Date(today.getFullYear(), 0, 1), firstDay31) + 1;
+    let totalDays = dateDiffInDays(new Date(calendar35.year, 0, 1), firstDay31) + 1;
     console.log(`totalDays: ${totalDays}`);
 
     const dates = [];
@@ -21,7 +21,7 @@ export function render(data, today, calendar35, budget, document,categories,onCe
         dates.push(null);
     }
     for (let i = 1; i <= 35; i++) {
-        let date = new Date(today.getFullYear(), 0, 1);
+        let date = new Date(calendar35.year, 0, 1);
         date.setDate(totalDays + i - 1);
         dates.push(date);
     }
@@ -30,7 +30,7 @@ export function render(data, today, calendar35, budget, document,categories,onCe
     }
 
     renderTable(budget, categories, document);
-    calendarTable(dates, onCellTapped, document, data, today, budget, categories,calendar35);
+    calendarTable(dates, onCellTapped, document, data, budget, categories,calendar35);
 
     // @ts-ignore
     document.getElementById('currentMonth').textContent = `${calendar35.year}年${calendar35.month}月`;
