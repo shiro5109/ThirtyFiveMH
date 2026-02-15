@@ -26,6 +26,7 @@ export function calendarTable(dates, onCellTapped2,document,data,today,budget,ca
                 td.addEventListener('click', () => {
                     // @ts-ignore
                     onCellTapped2(date,data);
+                    localStorage.setItem("data", JSON.stringify(data.toJSON()));
                     render(data,today,calendar35,budget,document,categories,onCellTapped2);
                 });
             } else {

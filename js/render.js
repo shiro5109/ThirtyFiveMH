@@ -2,9 +2,11 @@ import { calendarTable } from "./calendarTable.1.js";
 import { dateDiffInDays } from "./logic/dateDiffInDays.1.js";
 import { renderTable } from "./renderTable.2.js";
 
+/**
+ * @param {Data} data
+ */
 export function render(data, today, calendar35, budget, document,categories,onCellTapped) {
 //    const obj = { date: "2026-03-08", amount: 1000 };
-    localStorage.setItem("data", JSON.stringify(data));
 
     let firstDay31 = calendar35.CalcFirstDate();
     console.log(`firstDay31: ${firstDay31}`);

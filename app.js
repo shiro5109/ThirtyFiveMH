@@ -25,13 +25,13 @@ if(window.matchMedia("(display-mode: standalone)").matches===false){
   document.getElementById('iosPrompt').style.display = 'block';
 }
 
-let  data = new Data();
+let data = new Data();
 
 let string=localStorage.getItem("data");
 if(string!=null){
   const data2 = JSON.parse(string);
   if(data2!=null){
-      data=data2;
+      data=Data.fromJSON(data2);
   }
 }
 
