@@ -3,6 +3,9 @@ import { dateDiffInDays } from "./logic/dateDiffInDays.1.js";
 import { renderTable } from "./renderTable.2.js";
 
 export function render(data, today, calendar35, budget, document,categories,onCellTapped) {
+//    const obj = { date: "2026-03-08", amount: 1000 };
+    localStorage.setItem("data", JSON.stringify(data));
+
     let firstDay31 = calendar35.CalcFirstDate();
     console.log(`firstDay31: ${firstDay31}`);
     let totalDays = dateDiffInDays(new Date(today.getFullYear(), 0, 1), firstDay31) + 1;

@@ -25,7 +25,17 @@ if(window.matchMedia("(display-mode: standalone)").matches===false){
   document.getElementById('iosPrompt').style.display = 'block';
 }
 
-const data = new Data();
+let  data = new Data();
+
+let string=localStorage.getItem("data");
+if(string!=null){
+  const data2 = JSON.parse(string);
+  if(data2!=null){
+      data=data2;
+  }
+}
+
+//const data = new Data();
 const today=new Date();
 const calendar35=new Calendar35(today.getFullYear(), today.getMonth() + 1);
 render(data,today,calendar35,budget,document,categories,onCellTapped);
