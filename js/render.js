@@ -5,7 +5,7 @@ import { renderTable } from "./renderTable.2.js";
 /**
  * @param {Data} data
  */
-export function render(data, calendar35, budget, document,categories,onCellTapped) {
+export function render(data, calendar35, budget,categories,onCellTapped) {
 //    const obj = { date: "2026-03-08", amount: 1000 };
 
     let firstDay31 = calendar35.CalcFirstDate();
@@ -29,7 +29,7 @@ export function render(data, calendar35, budget, document,categories,onCellTappe
         dates.push(null);
     }
 
-    renderTable(budget, categories, document);
+    renderTable(budget, categories);
     calendarTable(dates, onCellTapped, document, data, budget, categories,calendar35);
 
     // @ts-ignore

@@ -1,5 +1,5 @@
 
-export function renderTable(budget2,categories,document) {
+export function renderTable(budget2,categories) {
     const tbody = document.getElementById('tableBody');
     // @ts-ignore
     tbody.innerHTML = "";
