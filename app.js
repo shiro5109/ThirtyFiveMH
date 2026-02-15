@@ -5,29 +5,28 @@ import { Data } from "./js/logic/Data.js";
 import { onCellTapped } from "./js/onCellTapped.js";
 import { render } from "./js/render.js";
 
-
-export const categories = ["食費", "日用品", "ガソリン"];
-let budget = [0, 0, 0];
-
-// @ts-ignore
-document.getElementById('recalculate').addEventListener('click', () => {
-  alert("合計: " + budget.reduce((a, b) => a + b, 0));
-});
-
-// @ts-ignore
-document.getElementById('prev').addEventListener('click', () => { calendar35.month--; render(); });
-// @ts-ignore
-document.getElementById('next').addEventListener('click', () => { calendar35.month++; render(); });
-
-// iOS判定してメッセージを表示
-if (window.matchMedia("(display-mode: standalone)").matches === false) {
-  // @ts-ignore
-  document.getElementById('iosPrompt').style.display = 'block';
-}
-
 main();
 
 function main() {
+  const categories = ["食費", "日用品", "ガソリン"];
+  let budget = [0, 0, 0];
+
+  // @ts-ignore
+  document.getElementById('recalculate').addEventListener('click', () => {
+    alert("合計: " + budget.reduce((a, b) => a + b, 0));
+  });
+
+  // @ts-ignore
+  document.getElementById('prev').addEventListener('click', () => { calendar35.month--; render(); });
+  // @ts-ignore
+  document.getElementById('next').addEventListener('click', () => { calendar35.month++; render(); });
+
+  // iOS判定してメッセージを表示
+  if (window.matchMedia("(display-mode: standalone)").matches === false) {
+    // @ts-ignore
+    document.getElementById('iosPrompt').style.display = 'block';
+  }
+
   let data = new Data();
   let string = localStorage.getItem("data");
   if (string != null) {
