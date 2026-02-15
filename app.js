@@ -5,10 +5,15 @@ import { Data } from "./js/logic/Data.js";
 import { onCellTapped } from "./js/onCellTapped.js";
 import { render } from "./js/render.js";
 import {closeDialog} from "./js/closeDialog.js";
+import { populateExpenseTypes } from "./js/populateExpenseTypes.js";
 
 main();
 
 function main() {
+  document.addEventListener("DOMContentLoaded", () => {
+    populateExpenseTypes();
+  });
+
   const categories = ["食費", "日用品", "ガソリン"];
   let budget = [0, 0, 0];
 
