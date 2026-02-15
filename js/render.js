@@ -30,7 +30,7 @@ export function render(data, calendar35, budget,categories,onCellTapped) {
     }
 
     renderTable(budget, categories);
-    calendarTable(dates, onCellTapped, document, data, budget, categories,calendar35);
+    calendarTable(dates, onCellTapped, data, budget, categories,calendar35);
 
     // @ts-ignore
     document.getElementById('currentMonth').textContent = `${calendar35.year}年${calendar35.month}月`;
