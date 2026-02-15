@@ -6,6 +6,8 @@ import { render } from "./render.js";
  */
 
 export function onCellTapped(date, data) {
+
+
     const input = prompt(
         `金額を入力してください`
     );
@@ -23,6 +25,7 @@ export function onCellTapped(date, data) {
     }
 
     console.log("入力された金額:", amount);
+
     const payment = new Payment(amount, date);
     data.addPayment(payment);
 //    render(data,today,calendar35,budget,document,categories,onCellTapped2);

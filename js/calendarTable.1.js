@@ -25,7 +25,8 @@ export function calendarTable(dates, onCellTapped2,document,data,budget,categori
                 }
                 td.addEventListener('click', () => {
                     // @ts-ignore
-                    onCellTapped2(date,data);
+//                    onCellTapped2(date,data);
+                    document.getElementById("dialogOverlay").classList.remove("hidden");
                     localStorage.setItem("data", JSON.stringify(data.toJSON()));
                     render(data,calendar35,budget,document,categories,onCellTapped2);
                 });

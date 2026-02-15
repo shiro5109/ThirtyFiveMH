@@ -4,6 +4,7 @@ import { Calendar35 } from "./js/logic/Calendar35.1.js";
 import { Data } from "./js/logic/Data.js";
 import { onCellTapped } from "./js/onCellTapped.js";
 import { render } from "./js/render.js";
+import {closeDialog} from "./js/closeDialog.js";
 
 main();
 
@@ -26,6 +27,25 @@ function main() {
     // @ts-ignore
     document.getElementById('iosPrompt').style.display = 'block';
   }
+
+  // @ts-ignore
+  document.getElementById("saveBtn").addEventListener("click", () => {
+      // @ts-ignore
+      const amount = Number(document.getElementById("amountInput").value);
+      // @ts-ignore
+      const type = document.getElementById("typeSelect").value;
+
+      if (!amount || amount <= 0) {
+          alert("正しい金額を入力してください");
+          return;
+      }
+
+      console.log(amount, type);
+  });
+  // @ts-ignore
+  document.getElementById("cancelBtn").addEventListener("click", closeDialog);
+  
+  closeDialog();
 
   let data = new Data();
   let string = localStorage.getItem("data");

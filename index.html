@@ -1,12 +1,14 @@
 ﻿<!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>35 ice cream -MH-</title>
-    <link rel="stylesheet" href="style0105.css">
+    <link rel="stylesheet" href="style0106.css">
     <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
     <div class="body">
         <h1>35 ice cream -MH-</h1>
@@ -35,7 +37,15 @@
         <div id="calendarWrapper">
             <table id="calendarTable">
                 <thead>
-                    <tr><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th></tr>
+                    <tr>
+                        <th>月</th>
+                        <th>火</th>
+                        <th>水</th>
+                        <th>木</th>
+                        <th>金</th>
+                        <th>土</th>
+                        <th>日</th>
+                    </tr>
                 </thead>
                 <tbody id="calendarBody"><!--js--></tbody>
             </table>
@@ -68,6 +78,23 @@
         </div>
 
     </div>
+
+    <div id="dialogOverlay" class="hidden">
+        <div id="inputDialog">
+            <input type="number" id="amountInput" placeholder="金額">
+
+            <select id="typeSelect">
+                <option value="food">食費</option>
+                <option value="transport">交通費</option>
+                <option value="entertainment">娯楽</option>
+            </select>
+
+            <button id="saveBtn">保存</button>
+            <button id="cancelBtn">キャンセル</button>
+        </div>
+    </div>
+
     <script type="module" src="./app.js"></script>
 </body>
+
 </html>
