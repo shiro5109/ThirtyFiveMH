@@ -26,16 +26,21 @@ if(window.matchMedia("(display-mode: standalone)").matches===false){
 }
 
 let data = new Data();
-
+let error=false;
 let string=localStorage.getItem("data");
 if(string!=null){
   const data2 = JSON.parse(string);
-  if(data2!=null){
-      data=Data.fromJSON(data2);
+  if(data2==null){
+    alert("データの読み込みに失敗しました。");
+    error=true;
+  }else{
+    data=Data.fromJSON(data2);
   }
 }
 
-//const data = new Data();
-const today=new Date();
-const calendar35=new Calendar35(today.getFullYear(), today.getMonth() + 1);
-render(data,today,calendar35,budget,document,categories,onCellTapped);
+if(error==false){
+  const today=new Date();
+  const calendar35=new Calendar35(today.getFullYear(), today.getMonth() + 1);
+
+  render(data,today,calendar35,budget,document,categories,onCellTapped);
+}
