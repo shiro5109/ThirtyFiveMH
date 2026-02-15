@@ -20,11 +20,6 @@ function main() {
   //   alert("合計: " + budget.reduce((a, b) => a + b, 0));
   // });
 
-  // @ts-ignore
-  document.getElementById('prev').addEventListener('click', () => { calendar35.month--; render(); });
-  // @ts-ignore
-  document.getElementById('next').addEventListener('click', () => { calendar35.month++; render(); });
-
   // iOS判定してメッセージを表示
   if (window.matchMedia("(display-mode: standalone)").matches === false) {
     // @ts-ignore
@@ -37,7 +32,11 @@ function main() {
   // @ts-ignore
   document.getElementById("cancelBtn").addEventListener("click", closeDialog);
   
-  closeDialog();
+//  closeDialog();
+
+  //note: before setting next/prev
+  const today = new Date();
+  const calendar35 = new Calendar35(today.getFullYear(), today.getMonth() + 1);
 
   let data = new Data();
   let string = localStorage.getItem("data");
@@ -51,8 +50,12 @@ function main() {
     data = Data.fromJSON(data2);
   }
 
-  const today = new Date();
-  const calendar35 = new Calendar35(today.getFullYear(), today.getMonth() + 1);
+  // @ts-ignore
+  document.getElementById('prev').addEventListener('click', () => {
+     calendar35.month--; render(data, calendar35, onCellTapped); });
+  // @ts-ignore
+  document.getElementById('next').addEventListener('click', () => { 
+    calendar35.month++; render(data, calendar35, onCellTapped); });
 
   render(data, calendar35, onCellTapped);
 }
