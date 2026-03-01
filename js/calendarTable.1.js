@@ -1,9 +1,14 @@
+// @ts-check
+
+import { DialogOverLay } from "./DialogOverLay.js";
 import { render } from "./render.js";
 
 /**
  * @param {(Date | null)[]} dates
+ * @param {import("./logic/Data.js").Data} data
+ * @param {DialogOverLay} dialogOverLay
  */
-export function calendarTable(dates, onCellTapped2,data,calendar35) {
+export function calendarTable(dates,data,dialogOverLay) {
     const tbody = document.getElementById('calendarBody');
     // @ts-ignore
     tbody.innerHTML = "";
@@ -27,8 +32,9 @@ export function calendarTable(dates, onCellTapped2,data,calendar35) {
                     // @ts-ignore
 //                    onCellTapped2(date,data);
                     document.getElementById("dialogOverlay").classList.remove("hidden");
-                    localStorage.setItem("data", JSON.stringify(data.toJSON()));
-                    render(data,calendar35,onCellTapped2);
+                    dialogOverLay.date = date;
+//                    localStorage.setItem("data", JSON.stringify(data.toJSON()));
+//                    refresh();
                 });
             } else {
                 td.innerHTML = "";

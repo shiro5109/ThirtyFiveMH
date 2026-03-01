@@ -1,6 +1,14 @@
+// @ts-check
+
+import { Payment } from "./Payment.1.js";
+
 export class Data {
+    /**
+   * @param {string} data2
+   */
     static fromJSON(data2) {
       const obj = typeof data2 === 'string' ? JSON.parse(data2) : data2;
+      // @ts-ignore
       return new Data((obj.payments || []).map(p => ({ date: new Date(p.date), amount: p.amount })));
     }
 
@@ -10,7 +18,10 @@ export class Data {
       };
     }
 
-    constructor(payments = []) {
+    /**
+   * @param {Payment[]} [payments]
+   */
+    constructor(payments=[]) {
         this.payments = payments;
     }
 
@@ -24,6 +35,14 @@ export class Data {
      */
     addPayment(payment) {
         this.payments.push(payment);
+    }
+
+    /**
+   * @param {Date} date
+   * @param {number} amount
+   */
+    addPayment2(date, amount) {
+        this.payments.push({ date, amount });
     }
 
     /**

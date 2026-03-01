@@ -1,11 +1,18 @@
+// @ts-check
+
 import { calendarTable } from "./calendarTable.1.js";
 import { dateDiffInDays } from "./logic/dateDiffInDays.1.js";
 import { renderTable } from "./renderTable.2.js";
+import { Data } from "./logic/Data.js";
+import { Calendar35 } from "./logic/Calendar35.1.js";
+import { DialogOverLay } from "./DialogOverLay.js";
 
 /**
  * @param {Data} data
+ * @param {Calendar35} calendar35
+ * @param {DialogOverLay} paymentDialog
  */
-export function render(data, calendar35, onCellTapped) {
+export function render(data, calendar35,paymentDialog) {
     const categories = ["食費", "日用品", "ガソリン"];//TODO
     let budget = [0, 0, 0];//TODO
 
@@ -31,7 +38,7 @@ export function render(data, calendar35, onCellTapped) {
     }
 
     renderTable(budget, categories);
-    calendarTable(dates, onCellTapped, data, budget, categories,calendar35);
+    calendarTable(dates, data,paymentDialog);
 
     // @ts-ignore
     document.getElementById('currentMonth').textContent = `${calendar35.year}年${calendar35.month}月`;

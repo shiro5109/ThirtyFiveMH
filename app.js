@@ -2,7 +2,7 @@
 
 import { Calendar35 } from "./js/logic/Calendar35.1.js";
 import { Data } from "./js/logic/Data.js";
-import { onCellTapped } from "./js/onCellTapped.js";
+//import { onCellTapped } from "./js/_onCellTapped.js";
 import { render } from "./js/render.js";
 import {closeDialog} from "./js/closeDialog.js";
 import { populateExpenseTypes } from "./js/populateExpenseTypes.js";
@@ -26,9 +26,6 @@ function main() {
     document.getElementById('iosPrompt').style.display = 'block';
   }
 
-  let dialog=new DialogOverLay();
-  dialog.InitializeSaveButton();
-
   // @ts-ignore
   document.getElementById("cancelBtn").addEventListener("click", closeDialog);
   
@@ -48,12 +45,20 @@ function main() {
     data = Data.fromJSON(data2);
   }
 
+  let dialog=new DialogOverLay(data);
+  dialog.InitializeSaveButton(refresh);
+
   // @ts-ignore
   document.getElementById('prev').addEventListener('click', () => {
-     calendar35.month--; render(data, calendar35, onCellTapped); });
+     calendar35.month--; refresh(); });
   // @ts-ignore
   document.getElementById('next').addEventListener('click', () => { 
-    calendar35.month++; render(data, calendar35, onCellTapped); });
+    calendar35.month++; refresh(); });
 
-  render(data, calendar35, onCellTapped);
+  refresh();
+
+  function refresh(){
+    render(data, calendar35,dialog);
+  }
 }
+
