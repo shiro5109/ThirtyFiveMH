@@ -1,4 +1,20 @@
+// @ts-check
+
+import { dateDiffInDays } from "./dateDiffInDays.1.js";
+import { Payment } from "./Payment.1.js";
+
 export class Calendar35 {
+    /**
+     * @param {Payment[]} payments
+     * @param {number} j
+     */
+    FilterPayments(payments, j) {
+        var firstDay=this.CalcFirstDate();
+        return payments.filter(p => {
+            var diff = dateDiffInDays(firstDay,p.date)-7*j;
+            return diff >= 0 && diff <= 6;
+        });
+    }
     /**
      * @param {number} year
      * @param {number} month
@@ -15,6 +31,9 @@ export class Calendar35 {
         return date31;
     }
 
+    /**
+     * @param {Date} today
+     */
     createDateArray(today) {
         let firstDay31 = this.CalcFirstDate();
 //        console.log(`firstDay31: ${firstDay31}`);

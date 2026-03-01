@@ -24,6 +24,8 @@ export class DialogOverLay {
               this.data.addPayment2(this.date, amount);
               if(this.date==null) throw new Error("date is null");
 
+              localStorage.setItem("data", JSON.stringify(this.data));
+
               refresh();
 
               closeDialog();

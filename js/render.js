@@ -37,7 +37,7 @@ export function render(data, calendar35,paymentDialog) {
         dates.push(null);
     }
 
-    renderTable(budget, categories);
+    renderTable(budget, categories,data.payments,calendar35);
     calendarTable(dates, data,paymentDialog);
 
     // @ts-ignore
