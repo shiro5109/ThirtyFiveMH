@@ -32,8 +32,6 @@ function main() {
   // @ts-ignore
   document.getElementById("cancelBtn").addEventListener("click", closeDialog);
   
-//  closeDialog();
-
   //note: before setting next/prev
   const today = new Date();
   const calendar35 = new Calendar35(today.getFullYear(), today.getMonth() + 1);
