@@ -42,6 +42,7 @@ function renderBudget(tbody) {
     for(let j=0;j<5;j++){
         // @ts-ignore
         let filteredPayments=[] ;//TODO
+        // @ts-ignore
         createEditableCell(tr2,filteredPayments);
     }
 
@@ -100,6 +101,7 @@ function renderRemaining(tbody) {
         // @ts-ignore
         let filteredPayments=[];//TODO
 //            p.date.getFullYear() === thisMonth.year && p.date.getMonth() === thisMonth.month - 1 && Math.floor((p.date.getDate() - 1) / 7) === j);
+        // @ts-ignore
         createEditableCell(tr2,filteredPayments);
     }
 
