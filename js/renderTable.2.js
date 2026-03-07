@@ -2,6 +2,7 @@
 
 import { Calendar35 } from "./logic/Calendar35.1.js";
 import { Payment } from "./logic/Payment.1.js";
+import { SummaryVM } from "./SummaryVM.js";
 
 
 /**
@@ -9,8 +10,9 @@ import { Payment } from "./logic/Payment.1.js";
  * @param {any[]} categories
  * @param {Payment[]} payments
  * @param {Calendar35} thisMonth
+ * @param {SummaryVM} summaryVM
  */
-export function renderTable(budget2,categories,payments,thisMonth) {
+export function renderTable(budget2,categories,payments,thisMonth,summaryVM) {
     const tbody = document.getElementById('tableBody');
     // @ts-ignore
     tbody.innerHTML = "";
@@ -24,16 +26,17 @@ export function renderTable(budget2,categories,payments,thisMonth) {
             tbody.appendChild(tr);
         }
 
-        renderBudget(tbody);
-        renderConsumation(thisMonth,payments,tbody);
-        renderRemaining(tbody);
+        renderBudget(tbody,summaryVM);
+        renderConsumation(thisMonth,summaryVM,tbody);
+        renderRemaining(tbody,summaryVM);
     });
 }
 
 /**
  * @param {HTMLElement | null} tbody
+ * @param {SummaryVM} summaryVM
  */
-function renderBudget(tbody) {
+function renderBudget(tbody,summaryVM) {
     const tr2=document.createElement('tr');    
     const tdLabel = document.createElement('td');
     tdLabel.textContent = "　予算";
@@ -43,7 +46,7 @@ function renderBudget(tbody) {
         // @ts-ignore
         let filteredPayments=[] ;//TODO
         // @ts-ignore
-        createEditableCell(tr2,filteredPayments);
+        createEditableCell(tr2,summaryVM,j);
     }
 
     // @ts-ignore
@@ -52,23 +55,24 @@ function renderBudget(tbody) {
 
 /**
  * @param {Calendar35} thisMonth
- * @param {Payment[]} payments
+ * @param {SummaryVM} summaryVM
  * @param {HTMLElement | null} tbody
  */
-function renderConsumation(thisMonth, payments,tbody) {
+function renderConsumation(thisMonth, summaryVM,tbody) {
     const tr2=document.createElement('tr');    
     const tdLabel = document.createElement('td');
     tdLabel.textContent = "　使用";
     tr2.appendChild(tdLabel);
 
-    const displayed=[];
+    let displayed=0;
     for(let j=0;j<5;j++){
         // @ts-ignore
-        let filteredPayments=thisMonth.FilterPayments(payments,j) ;
-        createEditableCell(tr2,filteredPayments);
-        displayed.push(...filteredPayments);
+//        let filteredPayments=thisMonth.FilterPayments(payments,j) ;
+        let thisWeek=summaryVM.GetConsumed(j);
+        createNonEditableCell(tr2,thisWeek);
+        displayed+=thisWeek;
     }
-    createEditableCell(tr2,displayed);
+    createNonEditableCell(tr2,displayed);
 
     // @ts-ignore
     tbody.appendChild(tr2);
@@ -76,35 +80,59 @@ function renderConsumation(thisMonth, payments,tbody) {
 
 /**
  * @param {HTMLTableRowElement} tr2
- * @param {Payment[]} filteredPayments
+ * @param {SummaryVM} summaryVM
+ * @param {number} weekIndex
  */
-function createEditableCell(tr2,filteredPayments) {
-    let total = 0;
-    filteredPayments.forEach(p => total += p.amount);
+function createEditableCell(tr2,summaryVM,weekIndex) {
+//    let total = 0;
+  //  filteredPayments.forEach(p => total += p.amount);
     const tdVal = document.createElement('td');
-    tdVal.textContent = total.toString();
-//    tdVal.contentEditable = 'true'; // 編集可能
-//    tdVal.addEventListener('input', () => budget2[i] = Number(tdVal.textContent));
+    tdVal.textContent = summaryVM.budget.GetWeekIndex(weekIndex).toString();
+    tdVal.contentEditable = 'true'; // 編集可能
+    tdVal.addEventListener('input', () =>{
+        let val=Number(tdVal.textContent);
+        summaryVM.SetBudgetValue(weekIndex,val);
+        summaryVM.Refresh();
+        summaryVM.Save();
+    } );
     tr2.appendChild(tdVal);
 }
 
 /**
  * @param {HTMLElement | null} tbody
+ * @param {SummaryVM} summaryVM
  */
-function renderRemaining(tbody) {
+function renderRemaining(tbody,summaryVM) {
     const tr2=document.createElement('tr');    
     const tdLabel = document.createElement('td');
     tdLabel.textContent = "　残り";
     tr2.appendChild(tdLabel);
 
+    var displayed=0;
     for(let j=0;j<5;j++){
         // @ts-ignore
         let filteredPayments=[];//TODO
 //            p.date.getFullYear() === thisMonth.year && p.date.getMonth() === thisMonth.month - 1 && Math.floor((p.date.getDate() - 1) / 7) === j);
         // @ts-ignore
-        createEditableCell(tr2,filteredPayments);
+        createNonEditableCell(tr2,summaryVM.GetRemaining(j));
+        displayed+=summaryVM.GetRemaining(j);
     }
+    createNonEditableCell(tr2,displayed);
 
     // @ts-ignore
     tbody.appendChild(tr2);
+}
+
+/**
+ * @param {HTMLTableRowElement} tr2
+ * @param {number} value
+ */
+function createNonEditableCell(tr2,value) {
+//    let total = 0;
+  //  filteredPayments.forEach(p => total += p.amount);
+    const tdVal = document.createElement('td');
+    tdVal.textContent = value.toString();
+//    tdVal.contentEditable = 'true'; // 編集可能
+//    tdVal.addEventListener('input', () => budget2[i] = Number(tdVal.textContent));
+    tr2.appendChild(tdVal);
 }

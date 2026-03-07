@@ -58,7 +58,13 @@ function main() {
   refresh();
 
   function refresh(){
-    render(data, calendar35,dialog);
+    render(data, calendar35,dialog,()=>{
+      save();
+    },()=>refresh());
+  }
+
+  function save(){
+    localStorage.setItem("data", JSON.stringify(data));
   }
 }
 

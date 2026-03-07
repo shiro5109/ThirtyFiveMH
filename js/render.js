@@ -11,8 +11,10 @@ import { DialogOverLay } from "./DialogOverLay.js";
  * @param {Data} data
  * @param {Calendar35} calendar35
  * @param {DialogOverLay} paymentDialog
+ * @param { () => void} saveFunction
+ * @param { () => void } refreshFunction
  */
-export function render(data, calendar35,paymentDialog) {
+export function render(data, calendar35,paymentDialog,saveFunction,refreshFunction) {
     const categories = ["食費", "日用品", "ガソリン"];//TODO
     let budget = [0, 0, 0];//TODO
 
@@ -37,7 +39,9 @@ export function render(data, calendar35,paymentDialog) {
         dates.push(null);
     }
 
-    renderTable(budget, categories,data.payments,calendar35);
+    const summaryVM=data.CreateSummaryVM(calendar35,()=>saveFunction(),()=>refreshFunction());
+
+    renderTable(budget, categories,data.payments,calendar35,summaryVM);
     calendarTable(dates, data,paymentDialog);
 
     // @ts-ignore
