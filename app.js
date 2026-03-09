@@ -21,12 +21,14 @@ function main() {
   }
 
   // @ts-ignore
-  document.getElementById("paymentDetailButton").addEventListener("click", () => {
+  document.getElementById("paymentDetailButton").addEventListener("click", (e) => {
+    e.preventDefault();
     alert("この機能はまだ使えません。");
   });
 
   // @ts-ignore
-  document.getElementById("fixedCostButton").addEventListener("click", () => {
+  document.getElementById("fixedCostButton").addEventListener("click", (e) => {
+    e.preventDefault();
     alert("この機能はまだ使えません。");
   });
 
