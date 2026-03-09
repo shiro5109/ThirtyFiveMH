@@ -1,11 +1,22 @@
+//@ts-check
+
 import { closeDialog } from "./closeDialog.js";
 
 export class DialogOverLay {
-    date;
+    /**
+     * @type {Date | null}
+     */
+    date = null;
 
+    /**
+     * @param {import("./logic/Data.js").Data} data
+     */
     constructor(data) {
         this.data = data;
     }
+    /**
+     * @param {{ (): void; (): void; }} refresh
+     */
     InitializeSaveButton(refresh){
           // @ts-ignore
           document.getElementById("saveBtn").addEventListener("click", () => {
@@ -21,8 +32,8 @@ export class DialogOverLay {
         
               console.log(amount, type);
 
-              this.data.addPayment2(this.date, amount);
               if(this.date==null) throw new Error("date is null");
+              this.data.addPayment2(this.date, amount, type);
 
               localStorage.setItem("data", JSON.stringify(this.data));
 

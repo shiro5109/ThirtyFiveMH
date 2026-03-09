@@ -39,7 +39,7 @@ export class SummaryVM{
      * @param {number} weekIndex
      */
     GetRemaining(weekIndex){
-        let used=this.GetConsumed(weekIndex);
+        let used=this.GetConsumed(weekIndex,[]);//TODO
         // let start=this.month35.CalcFirstDate();
         
         // this.payments.forEach(
@@ -55,13 +55,15 @@ export class SummaryVM{
 
     /**
      * @param {number} weekIndex
+     * @param {any[]} types
      */
-    GetConsumed(weekIndex){
+    GetConsumed(weekIndex,types){
         let used=0;
         let start=this.month35.CalcFirstDate();
 
         this.payments.forEach(
             p=>{
+                if(types.length>0 && !types.includes(p.type)) return;
                 let diff=dateDiffInDays(start,p.date);
                 if(diff>=weekIndex*7 && diff<(weekIndex+1)*7){
                     used+=p.amount;

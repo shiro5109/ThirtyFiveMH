@@ -71,3 +71,7 @@ table#calendarTable th, table#calendarTable td {
     border-radius: 10px;
     min-width: 250px;
 }
+
+.summaryTD{
+	text-align: right;
+}

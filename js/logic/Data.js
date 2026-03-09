@@ -73,9 +73,10 @@ export class Data {
     /**
    * @param {Date} date
    * @param {number} amount
+   * @param {string} type
    */
-    addPayment2(date, amount) {
-        this.payments.push({ date, amount });
+    addPayment2(date, amount,type) {
+        this.payments.push({ date, amount, type });
     }
 
     /**

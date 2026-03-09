@@ -4,13 +4,13 @@ import { Calendar35 } from "./logic/Calendar35.1.js";
 import { Payment } from "./logic/Payment.1.js";
 import { SummaryVM } from "./SummaryVM.js";
 import { Budget } from "./logic/Budget.js";
+import { ExpenseTypes } from "./logic/ExpenseTypes.js";
 
 
 /**
- * @param {Calendar35} thisMonth
  * @param {SummaryVM} summaryVM
  */
-export function renderTable(thisMonth,summaryVM) {
+export function renderTable(summaryVM) {
     const categories = ["食費、日用品、ガソリン", "医療費", "交際費、外食"];
 
     const tbody = document.getElementById('tableBody');
@@ -27,10 +27,33 @@ export function renderTable(thisMonth,summaryVM) {
             tbody.appendChild(tr);
         }
 
+        //refactor
+        let types=[];
+        if(cat==="食費、日用品、ガソリン"){
+            types=MyFilter(["food","daily","gas"]);
+        }else if(cat==="医療費"){
+            types=MyFilter(["medical"]);
+        }else if(cat==="交際費、外食"){
+            types=MyFilter(["social","dining"]);
+        }
+
         renderBudget(tbody,summaryVM);
-        renderConsumation(summaryVM,tbody);
+        renderConsumation(summaryVM,tbody,types);
         renderRemaining(tbody,summaryVM);
     });
+}
+
+/**
+ * @param {string[]} targetTypes
+ */
+function MyFilter(targetTypes){
+    // @ts-ignore
+    let result=[];
+    targetTypes.forEach(t=>{
+        result.push(ExpenseTypes.findIndex(e=>e.value===t));
+    });
+    // @ts-ignore
+    return result;
 }
 
 /**
@@ -58,8 +81,9 @@ function renderBudget(tbody,summaryVM) {
 /**
  * @param {SummaryVM} summaryVM
  * @param {HTMLElement | null} tbody
+ * @param {any[]} types
  */
-function renderConsumation(summaryVM,tbody) {
+function renderConsumation(summaryVM,tbody,types) {
     const tr2=document.createElement('tr');    
     const tdLabel = document.createElement('td');
     tdLabel.textContent = "　使用";
@@ -69,7 +93,7 @@ function renderConsumation(summaryVM,tbody) {
     for(let j=0;j<5;j++){
         // @ts-ignore
 //        let filteredPayments=thisMonth.FilterPayments(payments,j) ;
-        let thisWeek=summaryVM.GetConsumed(j);
+        let thisWeek=summaryVM.GetConsumed(j,types);
         createNonEditableCell(tr2,thisWeek);
         displayed+=thisWeek;
     }
@@ -88,6 +112,7 @@ function createEditableCell(tr2,summaryVM,weekIndex) {
 //    let total = 0;
   //  filteredPayments.forEach(p => total += p.amount);
     const tdVal = document.createElement('td');
+    tdVal.classList.add('summaryTD');
     tdVal.textContent = summaryVM.budget.weekBudgets[weekIndex].toString();
     tdVal.contentEditable = 'true'; // 編集可能
     tdVal.addEventListener('input', () =>{
@@ -129,11 +154,8 @@ function renderRemaining(tbody,summaryVM) {
  * @param {number} value
  */
 function createNonEditableCell(tr2,value) {
-//    let total = 0;
-  //  filteredPayments.forEach(p => total += p.amount);
     const tdVal = document.createElement('td');
+    tdVal.classList.add('summaryTD');
     tdVal.textContent = value.toString();
-//    tdVal.contentEditable = 'true'; // 編集可能
-//    tdVal.addEventListener('input', () => budget2[i] = Number(tdVal.textContent));
     tr2.appendChild(tdVal);
 }

@@ -38,7 +38,7 @@ export function render(data, calendar35,paymentDialog,saveFunction,refreshFuncti
 
     const summaryVM=data.CreateSummaryVM(calendar35,()=>saveFunction(),()=>refreshFunction());
 
-    renderTable(calendar35,summaryVM);
+    renderTable(summaryVM);
     calendarTable(dates, data,paymentDialog);
 
     // @ts-ignore
