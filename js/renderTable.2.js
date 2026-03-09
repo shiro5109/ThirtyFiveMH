@@ -28,7 +28,7 @@ export function renderTable(thisMonth,summaryVM) {
         }
 
         renderBudget(tbody,summaryVM);
-        renderConsumation(thisMonth,summaryVM,tbody);
+        renderConsumation(summaryVM,tbody);
         renderRemaining(tbody,summaryVM);
     });
 }
@@ -43,23 +43,23 @@ function renderBudget(tbody,summaryVM) {
     tdLabel.textContent = "　予算";
     tr2.appendChild(tdLabel);
 
+    let displayed=0;
     for(let j=0;j<5;j++){
         // @ts-ignore
-        let filteredPayments=[] ;//TODO
-        // @ts-ignore
         createEditableCell(tr2,summaryVM,j);
+        displayed+=summaryVM.budget.weekBudgets[j];
     }
+    createNonEditableCell(tr2,displayed);
 
     // @ts-ignore
     tbody.appendChild(tr2);
 }
 
 /**
- * @param {Calendar35} thisMonth
  * @param {SummaryVM} summaryVM
  * @param {HTMLElement | null} tbody
  */
-function renderConsumation(thisMonth, summaryVM,tbody) {
+function renderConsumation(summaryVM,tbody) {
     const tr2=document.createElement('tr');    
     const tdLabel = document.createElement('td');
     tdLabel.textContent = "　使用";
