@@ -3,16 +3,16 @@
 import { Calendar35 } from "./logic/Calendar35.1.js";
 import { Payment } from "./logic/Payment.1.js";
 import { SummaryVM } from "./SummaryVM.js";
+import { Budget } from "./logic/Budget.js";
 
 
 /**
- * @param {number[]} budget2
- * @param {any[]} categories
- * @param {Payment[]} payments
  * @param {Calendar35} thisMonth
  * @param {SummaryVM} summaryVM
  */
-export function renderTable(budget2,categories,payments,thisMonth,summaryVM) {
+export function renderTable(thisMonth,summaryVM) {
+    const categories = ["食費、日用品、ガソリン", "医療費", "交際費、外食"];
+
     const tbody = document.getElementById('tableBody');
     // @ts-ignore
     tbody.innerHTML = "";
@@ -21,6 +21,7 @@ export function renderTable(budget2,categories,payments,thisMonth,summaryVM) {
             const tr = document.createElement('tr');
             const tdCat = document.createElement('td');
             tdCat.innerHTML = "<b>" + cat + "</b>";
+            tdCat.colSpan=7;
             tr.appendChild(tdCat);
             // @ts-ignore
             tbody.appendChild(tr);
@@ -87,7 +88,7 @@ function createEditableCell(tr2,summaryVM,weekIndex) {
 //    let total = 0;
   //  filteredPayments.forEach(p => total += p.amount);
     const tdVal = document.createElement('td');
-    tdVal.textContent = summaryVM.budget.GetWeekIndex(weekIndex).toString();
+    tdVal.textContent = summaryVM.budget.weekBudgets[weekIndex].toString();
     tdVal.contentEditable = 'true'; // 編集可能
     tdVal.addEventListener('input', () =>{
         let val=Number(tdVal.textContent);

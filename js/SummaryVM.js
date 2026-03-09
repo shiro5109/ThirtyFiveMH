@@ -50,7 +50,7 @@ export class SummaryVM{
         //         }
         // });
 
-        return this.budget.GetWeekIndex(weekIndex)-used;
+        return this.budget.weekBudgets[weekIndex]-used;
     }
 
     /**

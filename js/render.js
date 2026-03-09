@@ -15,9 +15,6 @@ import { DialogOverLay } from "./DialogOverLay.js";
  * @param { () => void } refreshFunction
  */
 export function render(data, calendar35,paymentDialog,saveFunction,refreshFunction) {
-    const categories = ["食費", "日用品", "ガソリン"];//TODO
-    let budget = [0, 0, 0];//TODO
-
     let firstDay31 = calendar35.CalcFirstDate();
     console.log(`firstDay31: ${firstDay31}`);
     let totalDays = dateDiffInDays(new Date(calendar35.year, 0, 1), firstDay31) + 1;
@@ -41,7 +38,7 @@ export function render(data, calendar35,paymentDialog,saveFunction,refreshFuncti
 
     const summaryVM=data.CreateSummaryVM(calendar35,()=>saveFunction(),()=>refreshFunction());
 
-    renderTable(budget, categories,data.payments,calendar35,summaryVM);
+    renderTable(calendar35,summaryVM);
     calendarTable(dates, data,paymentDialog);
 
     // @ts-ignore
