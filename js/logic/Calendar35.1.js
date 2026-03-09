@@ -4,6 +4,23 @@ import { dateDiffInDays } from "./dateDiffInDays.1.js";
 import { Payment } from "./Payment.1.js";
 
 export class Calendar35 {
+    IncreaseMonth() {
+      if(this.month===12){
+        this.year++;
+        this.month=1;
+      }else{
+        this.month++;
+      }
+    }
+    DecreaseMonth() {
+      if(this.month===1){
+        this.year--;
+        this.month=12;
+      }else{
+        this.month--;
+      } 
+    }
+    
     /**
      * @param {Payment[]} payments
      * @param {number} j

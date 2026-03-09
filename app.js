@@ -50,10 +50,10 @@ function main() {
 
   // @ts-ignore
   document.getElementById('prev').addEventListener('click', () => {
-     calendar35.month--; refresh(); });
+     calendar35.DecreaseMonth(); refresh(); });
   // @ts-ignore
   document.getElementById('next').addEventListener('click', () => { 
-    calendar35.month++; refresh(); });
+    calendar35.IncreaseMonth(); refresh(); });
 
   refresh();
 
