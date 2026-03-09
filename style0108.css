@@ -31,6 +31,13 @@ table#calendarTable{
 	text-align: center;
 }
 
+table#budgetTable{
+	width: 90%;
+	border-collapse: collapse;
+	margin: 0 auto;
+	text-align: left;
+}
+
 .body{
 	background-color: mediumpurple;
 }
@@ -73,5 +80,10 @@ table#calendarTable th, table#calendarTable td {
 }
 
 .summaryTD{
+	text-align: right;
+	border: 1px solid #333;
+}
+
+#budgetHeader th{
 	text-align: right;
 }
