@@ -2,7 +2,6 @@
 
 import { Calendar35 } from "./js/logic/Calendar35.1.js";
 import { Data } from "./js/logic/Data.js";
-//import { onCellTapped } from "./js/_onCellTapped.js";
 import { render } from "./js/render.js";
 import {closeDialog} from "./js/closeDialog.js";
 import { populateExpenseTypes } from "./js/populateExpenseTypes.js";
@@ -15,16 +14,21 @@ function main() {
     populateExpenseTypes();
   });
 
-  // @ts-ignore
-  // document.getElementById('recalculate').addEventListener('click', () => {
-  //   alert("合計: " + budget.reduce((a, b) => a + b, 0));
-  // });
-
   // iOS判定してメッセージを表示
   if (window.matchMedia("(display-mode: standalone)").matches === false) {
     // @ts-ignore
     document.getElementById('iosPrompt').style.display = 'block';
   }
+
+  // @ts-ignore
+  document.getElementById("paymentDetailButton").addEventListener("click", () => {
+    alert("この機能はまだ使えません。");
+  });
+
+  // @ts-ignore
+  document.getElementById("fixedCostButton").addEventListener("click", () => {
+    alert("この機能はまだ使えません。");
+  });
 
   // @ts-ignore
   document.getElementById("cancelBtn").addEventListener("click", closeDialog);
