@@ -36,7 +36,7 @@ export class Data {
       // @ts-ignore
       return new Data(
         // @ts-ignore
-        (obj.payments || []).map(p => ({ date: new Date(p.date), amount: p.amount })),
+        (obj.payments || []).map(p => ({ date: new Date(p.date), amount: p.amount, type: p?.type })),
         // @ts-ignore
         (obj.budgets || []).map(b => ({ month35: new Calendar35(b.month35.year, b.month35.month), weekBudgets: b.weekBudgets }))
       );
@@ -44,7 +44,7 @@ export class Data {
 
     toJSON() {
       return {
-        payments: this.payments.map(p => ({ date: p.date.toISOString(), amount: p.amount })),
+        payments: this.payments.map(p => ({ date: p.date.toISOString(), amount: p.amount, type: p?.type })),
         budgets:(this.budgets || []).map(b=>({month35:{year:b.month35.year,month:b.month35.month},weekBudgets:b.weekBudgets}))
       };
     }

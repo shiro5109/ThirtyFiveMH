@@ -16,7 +16,7 @@ export function renderTable(summaryVM) {
     const tbody = document.getElementById('tableBody');
     // @ts-ignore
     tbody.innerHTML = "";
-    categories.forEach((cat, i) => {
+    categories.forEach((cat) => {
         {
             const tr = document.createElement('tr');
             const tdCat = document.createElement('td');
@@ -27,14 +27,17 @@ export function renderTable(summaryVM) {
             tbody.appendChild(tr);
         }
 
-        //refactor
-        let types=[];
+        //todo: refactor
+        /**
+         * @type {string[]}
+         */
+        let types=[]
         if(cat==="食費、日用品、ガソリン"){
-            types=MyFilter(["food","daily","gas"]);
+            types=["food","daily","gas"];
         }else if(cat==="医療費"){
-            types=MyFilter(["medical"]);
+            types=["medical"];
         }else if(cat==="交際費、外食"){
-            types=MyFilter(["social","dining"]);
+            types=["social","dining"];
         }
 
         renderBudget(tbody,summaryVM);
@@ -50,7 +53,7 @@ function MyFilter(targetTypes){
     // @ts-ignore
     let result=[];
     targetTypes.forEach(t=>{
-        result.push(ExpenseTypes.findIndex(e=>e.value===t));
+        result.push(ExpenseTypes.find(e=>e.value===t)?.label);
     });
     // @ts-ignore
     return result;
@@ -81,7 +84,7 @@ function renderBudget(tbody,summaryVM) {
 /**
  * @param {SummaryVM} summaryVM
  * @param {HTMLElement | null} tbody
- * @param {any[]} types
+ * @param {string[]} types
  */
 function renderConsumation(summaryVM,tbody,types) {
     const tr2=document.createElement('tr');    
