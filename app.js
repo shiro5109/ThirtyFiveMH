@@ -6,6 +6,7 @@ import { render } from "./js/render.js";
 import {closeDialog} from "./js/closeDialog.js";
 import { populateExpenseTypes } from "./js/populateExpenseTypes.js";
 import { DialogOverLay } from "./js/DialogOverLay.js";
+import { BudgetDialog } from "./js/budgetDialog.js";
 
 main();
 
@@ -53,7 +54,8 @@ function main() {
 
   let dialog=new DialogOverLay(data);
   dialog.InitializeSaveButton(refresh);
-
+  const budgetDialog=new BudgetDialog();
+  
   // @ts-ignore
   document.getElementById('prev').addEventListener('click', () => {
      calendar35.DecreaseMonth(); refresh(); });
@@ -64,9 +66,12 @@ function main() {
   refresh();
 
   function refresh(){
-    render(data, calendar35,dialog,()=>{
-      save();
-    },()=>refresh());
+    render(
+      data, 
+      calendar35,
+      dialog,()=>{save();},
+      ()=>refresh(),
+      budgetDialog);
   }
 
   function save(){

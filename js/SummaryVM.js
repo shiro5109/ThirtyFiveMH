@@ -1,5 +1,6 @@
 //@ts-check
 
+import { BudgetDialog } from "./budgetDialog.js";
 import { Budget } from "./logic/Budget.js";
 import { Calendar35 } from "./logic/Calendar35.1.js";
 import { dateDiffInDays } from "./logic/dateDiffInDays.1.js";
@@ -27,13 +28,15 @@ export class SummaryVM{
      * @param {Payment[]} payments
      * @param {()=>void} saveFunction
      * @param {()=>void} refreshFunction
+     * @param {BudgetDialog} budgetDialog
      */
-    constructor(month35,budget,payments,saveFunction,refreshFunction){
+    constructor(month35,budget,payments,saveFunction,refreshFunction,budgetDialog) {
         this.month35=month35;
         this.budget=budget;
         this.payments=payments;
         this.SaveFunction=saveFunction;
         this.RefreshFunction=refreshFunction;
+        this.budgetDialog=budgetDialog;
     }
     /**
      * @param {number} weekIndex
@@ -83,13 +86,26 @@ export class SummaryVM{
         const tdVal = document.createElement('td');
         tdVal.classList.add('summaryTD');
         tdVal.classList.add('editableCell');
-        tdVal.textContent = summaryVM.budget.weekBudgets[weekIndex].toString();
-        tdVal.contentEditable = 'true'; // 編集可能
-        tdVal.addEventListener('input', () =>{
-            let val=Number(tdVal.textContent);
-            summaryVM.SetBudgetValue(weekIndex,val);
-            summaryVM.Refresh();
-            summaryVM.Save();
+        let weekBudget=summaryVM.budget.weekBudgets[weekIndex];
+        if(weekBudget==null) weekBudget=0;
+        tdVal.textContent = weekBudget.toString();
+//        tdVal.contentEditable = 'true'; // 編集可能
+        tdVal.addEventListener('click', () =>{
+            if(document==null) throw new Error("document is null");
+            document.getElementById("budgetDialogOverlay")?.classList.remove("hidden");
+    //        budgetDialog.tr=tr2;
+  //          budgetDialog.weekIndex=weekIndex;
+//            this.budgetDialog.summaryVM=summaryVM;
+            this.budgetDialog.OnDecide=(/** @type {number} */ value)=>{
+                summaryVM.SetBudgetValue(weekIndex,value);
+                summaryVM.Refresh();
+                summaryVM.Save();
+            }
+//              dialogOverLay.date = date;
+//            let val=Number(tdVal.textContent);
+  //          summaryVM.SetBudgetValue(weekIndex,val);
+    //        summaryVM.Refresh();
+      //      summaryVM.Save();
         } );
         tr2.appendChild(tdVal);
     }

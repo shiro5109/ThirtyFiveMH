@@ -1,7 +1,6 @@
 // @ts-check
 
 import { DialogOverLay } from "./DialogOverLay.js";
-import { render } from "./render.js";
 
 /**
  * @param {(Date | null)[]} dates

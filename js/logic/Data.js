@@ -1,5 +1,6 @@
 // @ts-check
 
+import { BudgetDialog } from "../budgetDialog.js";
 import { SummaryVM } from "../SummaryVM.js";
 import { Budget } from "./Budget.js";
 import { Calendar35 } from "./Calendar35.1.js";
@@ -10,8 +11,9 @@ export class Data {
      * @param {Calendar35} calendar35
      * @param {(() => void)} saveFunction
      * @param {(() => void)} refreshFunction
+     * @param {BudgetDialog} budgetDialog
      */
-    CreateSummaryVM(calendar35,saveFunction,refreshFunction) {
+    CreateSummaryVM(calendar35,saveFunction,refreshFunction,budgetDialog) {
         // @ts-ignore
 //        this.budgets=[];//TODO
         if(!this.budgets){
@@ -25,7 +27,7 @@ export class Data {
             this.budgets.push(budget);
         }
         return new SummaryVM(
-            calendar35, budget, this.payments,()=>saveFunction(),()=>refreshFunction());
+            calendar35, budget, this.payments,()=>saveFunction(),()=>refreshFunction(),budgetDialog);
     }
     /**
    * @param {string} data2

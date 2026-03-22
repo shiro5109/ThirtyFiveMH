@@ -71,12 +71,35 @@ table#calendarTable th, table#calendarTable td {
     z-index: 1000;
 }
 
+#budgetDialogOverlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.4);
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	z-index: 1000;
+}
+
+#budgetDialogOverlay.hidden {
+	display: none !important;
+}
+
 /* ダイアログ本体 */
 #inputDialog {
     background: white;
     padding: 20px;
     border-radius: 10px;
     min-width: 250px;
+}
+
+#budgetInputDialog {
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	min-width: 250px;
 }
 
 .summaryTD{

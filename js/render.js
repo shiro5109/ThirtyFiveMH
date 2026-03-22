@@ -6,6 +6,7 @@ import { renderTable } from "./renderTable.2.js";
 import { Data } from "./logic/Data.js";
 import { Calendar35 } from "./logic/Calendar35.1.js";
 import { DialogOverLay } from "./DialogOverLay.js";
+import { BudgetDialog } from "./budgetDialog.js";
 
 /**
  * @param {Data} data
@@ -13,8 +14,9 @@ import { DialogOverLay } from "./DialogOverLay.js";
  * @param {DialogOverLay} paymentDialog
  * @param { () => void} saveFunction
  * @param { () => void } refreshFunction
+ * @param {BudgetDialog} budgetDialog
  */
-export function render(data, calendar35,paymentDialog,saveFunction,refreshFunction) {
+export function render(data, calendar35,paymentDialog,saveFunction,refreshFunction,budgetDialog) {
     let firstDay31 = calendar35.CalcFirstDate();
     console.log(`firstDay31: ${firstDay31}`);
     let totalDays = dateDiffInDays(new Date(calendar35.year, 0, 1), firstDay31) + 1;
@@ -36,7 +38,7 @@ export function render(data, calendar35,paymentDialog,saveFunction,refreshFuncti
         dates.push(null);
     }
 
-    const summaryVM=data.CreateSummaryVM(calendar35,()=>saveFunction(),()=>refreshFunction());
+    const summaryVM=data.CreateSummaryVM(calendar35,()=>saveFunction(),()=>refreshFunction(),budgetDialog);
 
     renderTable(summaryVM);
     calendarTable(dates, data,paymentDialog);
