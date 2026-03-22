@@ -72,7 +72,7 @@ function renderBudget(tbody,summaryVM) {
     let displayed=0;
     for(let j=0;j<5;j++){
         // @ts-ignore
-        createEditableCell(tr2,summaryVM,j);
+        summaryVM.createEditableCell(tr2,summaryVM,j);
         displayed+=summaryVM.budget.weekBudgets[j];
     }
     createNonEditableCell(tr2,displayed);
@@ -104,27 +104,6 @@ function renderConsumation(summaryVM,tbody,types) {
 
     // @ts-ignore
     tbody.appendChild(tr2);
-}
-
-/**
- * @param {HTMLTableRowElement} tr2
- * @param {SummaryVM} summaryVM
- * @param {number} weekIndex
- */
-function createEditableCell(tr2,summaryVM,weekIndex) {
-//    let total = 0;
-  //  filteredPayments.forEach(p => total += p.amount);
-    const tdVal = document.createElement('td');
-    tdVal.classList.add('summaryTD');
-    tdVal.textContent = summaryVM.budget.weekBudgets[weekIndex].toString();
-    tdVal.contentEditable = 'true'; // 編集可能
-    tdVal.addEventListener('input', () =>{
-        let val=Number(tdVal.textContent);
-        summaryVM.SetBudgetValue(weekIndex,val);
-        summaryVM.Refresh();
-        summaryVM.Save();
-    } );
-    tr2.appendChild(tdVal);
 }
 
 /**

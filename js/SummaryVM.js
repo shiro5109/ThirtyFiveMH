@@ -71,4 +71,26 @@ export class SummaryVM{
         });
         return used;
     }
+
+    /**
+     * @param {HTMLTableRowElement} tr2
+     * @param {SummaryVM} summaryVM
+     * @param {number} weekIndex
+     */
+    createEditableCell(tr2,summaryVM,weekIndex) {
+    //    let total = 0;
+    //  filteredPayments.forEach(p => total += p.amount);
+        const tdVal = document.createElement('td');
+        tdVal.classList.add('summaryTD');
+        tdVal.classList.add('editableCell');
+        tdVal.textContent = summaryVM.budget.weekBudgets[weekIndex].toString();
+        tdVal.contentEditable = 'true'; // 編集可能
+        tdVal.addEventListener('input', () =>{
+            let val=Number(tdVal.textContent);
+            summaryVM.SetBudgetValue(weekIndex,val);
+            summaryVM.Refresh();
+            summaryVM.Save();
+        } );
+        tr2.appendChild(tdVal);
+    }
 }
