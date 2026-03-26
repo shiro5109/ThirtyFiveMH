@@ -47,18 +47,7 @@ export function renderTable(summaryVM) {
     });
 }
 
-/**
- * @param {string[]} targetTypes
- */
-function MyFilter(targetTypes){
-    // @ts-ignore
-    let result=[];
-    targetTypes.forEach(t=>{
-        result.push(ExpenseTypes.find(e=>e.value===t)?.label);
-    });
-    // @ts-ignore
-    return result;
-}
+
 
 
 

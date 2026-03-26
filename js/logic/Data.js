@@ -22,7 +22,7 @@ export class Data {
         }
         let budget=this.budgets.find(b=>b.month35.year===calendar35.year && b.month35.month===calendar35.month);
         if(!budget){
-            budget=new Budget(calendar35,[0,0,0,0,0]);
+            budget=new Budget(calendar35,[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]);
             // @ts-ignore
             this.budgets.push(budget);
         }
@@ -38,16 +38,27 @@ export class Data {
       // @ts-ignore
       return new Data(
         // @ts-ignore
-        (obj.payments || []).map(p => ({ date: new Date(p.date), amount: p.amount, type: p?.type })),
+        (obj.payments || []).map(
+            // @ts-ignore
+            p => ({ date: new Date(p.date), amount: p.amount, type: p?.type })
+        ),
         // @ts-ignore
-        (obj.budgets || []).map(b => ({ month35: new Calendar35(b.month35.year, b.month35.month), weekBudgets: b.weekBudgets }))
+        (obj.budgets || []).map(
+            // @ts-ignore
+            b => new Budget(
+                new Calendar35(b.month35.year, b.month35.month),
+                b.weekBudgets || [0,0,0,0,0],
+                b.medicalBudgets || [0,0,0,0,0],
+                b.luxBudgets || [0,0,0,0,0]
+            )
+        )
       );
     }
 
     toJSON() {
       return {
         payments: this.payments.map(p => ({ date: p.date.toISOString(), amount: p.amount, type: p?.type })),
-        budgets:(this.budgets || []).map(b=>({month35:{year:b.month35.year,month:b.month35.month},weekBudgets:b.weekBudgets}))
+        budgets:(this.budgets || []).map(b=>({month35:{year:b.month35.year,month:b.month35.month},weekBudgets:b.foodBudgets}))
       };
     }
 

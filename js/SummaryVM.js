@@ -5,6 +5,7 @@ import { createNonEditableCell } from "./createNonEditableCell.js";
 import { Budget } from "./logic/Budget.js";
 import { Calendar35 } from "./logic/Calendar35.1.js";
 import { dateDiffInDays } from "./logic/dateDiffInDays.1.js";
+import { ExpenseTypes } from "./logic/ExpenseTypes.js";
 import { Payment } from "./logic/Payment.1.js";
 
 export class SummaryVM{
@@ -13,7 +14,7 @@ export class SummaryVM{
      * @param {number} val
      */
     SetBudgetValue(weekIndex, val) {
-        this.budget.weekBudgets[weekIndex]=val;
+        this.budget.foodBudgets[weekIndex]=val;
     }
     Refresh() {
         // @ts-ignore
@@ -54,7 +55,7 @@ export class SummaryVM{
         //         }
         // });
 
-        return this.budget.weekBudgets[weekIndex]-used;
+        return this.budget.foodBudgets[weekIndex]-used;
     }
 
     /**
@@ -78,16 +79,15 @@ export class SummaryVM{
 
     /**
      * @param {number} weekIndex
+     * @param {number} weekBudget
      */
-    createEditableCell(weekIndex) {
+    createEditableCell(weekIndex,weekBudget) {
     //    let total = 0;
     //  filteredPayments.forEach(p => total += p.amount);
         const tdVal = document.createElement('td');
         tdVal.classList.add('summaryTD');
         tdVal.classList.add('editableCell');
 
-        let weekBudget=this.budget.weekBudgets[weekIndex];
-        if(weekBudget==null) weekBudget=0;
         tdVal.textContent = weekBudget.toString();
 
         tdVal.addEventListener('click', () =>this.OnClickEditableCell(weekIndex));
@@ -180,10 +180,16 @@ export class SummaryVM{
 
         let displayed=0;
         for(let j=0;j<5;j++){
+            console.log(this);
+            console.log(this.budget);
+            console.log(types);
             // @ts-ignore
-            const tdVal=summaryVM.createEditableCell(j);
+            let weekBudget=this.budget.GetBudgetValue(j,types[0]);
+            if(weekBudget==null) weekBudget=0;
+            // @ts-ignore
+            const tdVal=summaryVM.createEditableCell(j,weekBudget);
             tr2.appendChild(tdVal);
-            displayed+=summaryVM.budget.weekBudgets[j];
+            displayed+=summaryVM.budget.foodBudgets[j];
         }
         createNonEditableCell(tr2,displayed);
 
