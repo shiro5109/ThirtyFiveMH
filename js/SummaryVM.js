@@ -93,9 +93,7 @@ export class SummaryVM{
         tdVal.addEventListener('click', () =>{
             if(document==null) throw new Error("document is null");
             document.getElementById("budgetDialogOverlay")?.classList.remove("hidden");
-    //        budgetDialog.tr=tr2;
-  //          budgetDialog.weekIndex=weekIndex;
-//            this.budgetDialog.summaryVM=summaryVM;
+
             this.budgetDialog.OnDecide=(/** @type {number} */ value)=>{
                 summaryVM.SetBudgetValue(weekIndex,value);
                 summaryVM.Refresh();
