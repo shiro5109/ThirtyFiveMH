@@ -77,33 +77,47 @@ export class SummaryVM{
     }
 
     /**
-     * @param {HTMLTableRowElement} tr2
-     * @param {SummaryVM} summaryVM
      * @param {number} weekIndex
      */
-    createEditableCell(tr2,summaryVM,weekIndex) {
+    createEditableCell(weekIndex) {
     //    let total = 0;
     //  filteredPayments.forEach(p => total += p.amount);
         const tdVal = document.createElement('td');
         tdVal.classList.add('summaryTD');
         tdVal.classList.add('editableCell');
-        let weekBudget=summaryVM.budget.weekBudgets[weekIndex];
+
+        let weekBudget=this.budget.weekBudgets[weekIndex];
         if(weekBudget==null) weekBudget=0;
         tdVal.textContent = weekBudget.toString();
-        tdVal.addEventListener('click', () =>{
-            if(document==null) throw new Error("document is null");
-            document.getElementById("budgetDialogOverlay")?.classList.remove("hidden");
 
-            this.budgetDialog.OnDecide=(/** @type {number} */ value)=>{
-                summaryVM.SetBudgetValue(weekIndex,value);
-                summaryVM.Refresh();
-                summaryVM.Save();
-            }
-        } );
-        tr2.appendChild(tdVal);
+        tdVal.addEventListener('click', () =>this.OnClickEditableCell(weekIndex));
+
+        return tdVal;
     }
 
     /**
+     * @param {number} weekIndex
+     */
+    OnClickEditableCell(weekIndex){
+        if(document==null) throw new Error("document is null");
+        document.getElementById("budgetDialogOverlay")?.classList.remove("hidden");
+
+        this.budgetDialog.OnDecide=(/** @type {number} */ value)=>
+            this.OnDecideValue(value,weekIndex);
+
+    }
+
+    /**
+     * @param {number} value
+     * @param {number} weekIndex
+     */
+    OnDecideValue(value, weekIndex){
+        this.SetBudgetValue(weekIndex,value);
+        this.Refresh();
+        this.Save();
+    };
+
+     /**
      * @param {HTMLElement | null} tbody
      * @param {SummaryVM} summaryVM
      */
@@ -156,8 +170,9 @@ export class SummaryVM{
     /**
      * @param {HTMLElement | null} tbody
      * @param {SummaryVM} summaryVM
+     * @param {string[]} types
      */
-    renderBudget(tbody,summaryVM) {
+    renderBudget(tbody,summaryVM,types) {
         const tr2=document.createElement('tr');    
         const tdLabel = document.createElement('td');
         tdLabel.textContent = "　予算";
@@ -166,7 +181,8 @@ export class SummaryVM{
         let displayed=0;
         for(let j=0;j<5;j++){
             // @ts-ignore
-            summaryVM.createEditableCell(tr2,summaryVM,j);
+            const tdVal=summaryVM.createEditableCell(j);
+            tr2.appendChild(tdVal);
             displayed+=summaryVM.budget.weekBudgets[j];
         }
         createNonEditableCell(tr2,displayed);
