@@ -11,19 +11,16 @@
 
 <body>
     <div class="body">
-        <h1>35 ice cream -MH-</h1>
+        <table id="modeSwitch">
+            <thead>
+                <tr>
+                    <th><button id="calButton">カレンダー</button></th>
+                    <th><button id="paymentDetailButton" type="button">変動費履歴</button></th>
+                    <th><button id="fixedCostButton" type="button">固定費</button></th>
+                </tr>
+            </thead>
+        </table>
 
-        <div>
-            <table id="modeSwitch">
-                <thead>
-                    <tr>
-                        <th><button>カレンダー</button></th>
-                        <th><button id="paymentDetailButton" type="button">変動費履歴</button></th>
-                        <th><button id="fixedCostButton" type="button">固定費</button></th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
         <div id="iosPrompt" style="display:none;" class="iosPrompt">
             iPhoneの場合、Safariの共有ボタンから「ホーム画面に追加」を選んでください
         </div>
@@ -72,6 +69,9 @@
 
 <!--        <button id="recalculate">再計算</button>-->
 
+        <div id="appName">
+        35 ice cream -MH-
+        </div>
         <div class="version">
             ver 0.109
         </div>
@@ -80,21 +80,18 @@
 
     <div id="dialogOverlay" class="hidden">
         <div id="inputDialog">
-            <input type="text" id="amountInput" placeholder="金額" inputmode="numeric">
-
-            <select id="typeSelect">
-            </select>
-
-            <button id="saveBtn">保存</button>
             <button id="cancelBtn">キャンセル</button>
+            <input type="text" id="amountInput" placeholder="金額" inputmode="numeric">
+            <select id="typeSelect"></select>
+            <button id="saveBtn">保存</button>
         </div>
     </div>
 
     <div id="budgetDialogOverlay" class="hidden">
         <div id="budgetInputDialog">
+            <button id="budgetCancelBtn">キャンセル</button>
             <input type="text" id="budgetAmountInput" placeholder="金額" inputmode="numeric">
             <button id="budgetSaveBtn">保存</button>
-            <button id="budgetCancelBtn">キャンセル</button>
         </div>
     </div>
 

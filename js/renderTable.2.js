@@ -41,9 +41,9 @@ export function renderTable(summaryVM) {
             types=["social","dining"];
         }
 
-        summaryVM.renderBudget(tbody,summaryVM,types);
-        summaryVM.renderConsumation(summaryVM,tbody,types);
-        summaryVM.renderRemaining(tbody,summaryVM);
+        summaryVM.renderBudget(tbody,types);
+        summaryVM.renderConsumation(tbody,types);
+        summaryVM.renderRemaining(tbody);
     });
 }
 

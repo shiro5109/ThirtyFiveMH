@@ -12,9 +12,21 @@ export class SummaryVM{
     /**
      * @param {number} weekIndex
      * @param {number} val
+     * @param {string} budgetTypeString
+
      */
-    SetBudgetValue(weekIndex, val) {
-        this.budget.foodBudgets[weekIndex]=val;
+    SetBudgetValue(weekIndex, val,budgetTypeString) {
+        switch(budgetTypeString) {
+            case ExpenseTypes.Food.value:
+                this.budget.foodBudgets[weekIndex]=val;
+                break;
+            case ExpenseTypes.Medical.value:
+                this.budget.medicalBudgets[weekIndex]=val;
+                break;
+            case ExpenseTypes.Social.value :
+                this.budget.luxBudgets[weekIndex]=val;
+                break;
+        }
     }
     Refresh() {
         // @ts-ignore
@@ -77,51 +89,12 @@ export class SummaryVM{
         return used;
     }
 
-    /**
-     * @param {number} weekIndex
-     * @param {number} weekBudget
-     */
-    createEditableCell(weekIndex,weekBudget) {
-    //    let total = 0;
-    //  filteredPayments.forEach(p => total += p.amount);
-        const tdVal = document.createElement('td');
-        tdVal.classList.add('summaryTD');
-        tdVal.classList.add('editableCell');
 
-        tdVal.textContent = weekBudget.toString();
-
-        tdVal.addEventListener('click', () =>this.OnClickEditableCell(weekIndex));
-
-        return tdVal;
-    }
-
-    /**
-     * @param {number} weekIndex
-     */
-    OnClickEditableCell(weekIndex){
-        if(document==null) throw new Error("document is null");
-        document.getElementById("budgetDialogOverlay")?.classList.remove("hidden");
-
-        this.budgetDialog.OnDecide=(/** @type {number} */ value)=>
-            this.OnDecideValue(value,weekIndex);
-
-    }
-
-    /**
-     * @param {number} value
-     * @param {number} weekIndex
-     */
-    OnDecideValue(value, weekIndex){
-        this.SetBudgetValue(weekIndex,value);
-        this.Refresh();
-        this.Save();
-    };
 
      /**
      * @param {HTMLElement | null} tbody
-     * @param {SummaryVM} summaryVM
      */
-    renderRemaining(tbody,summaryVM) {
+    renderRemaining(tbody) {
         const tr2=document.createElement('tr');    
         const tdLabel = document.createElement('td');
         tdLabel.textContent = "　残り";
@@ -133,8 +106,8 @@ export class SummaryVM{
             let filteredPayments=[];//TODO
     //            p.date.getFullYear() === thisMonth.year && p.date.getMonth() === thisMonth.month - 1 && Math.floor((p.date.getDate() - 1) / 7) === j);
             // @ts-ignore
-            createNonEditableCell(tr2,summaryVM.GetRemaining(j));
-            displayed+=summaryVM.GetRemaining(j);
+            createNonEditableCell(tr2,this.GetRemaining(j));
+            displayed+=this.GetRemaining(j);
         }
         createNonEditableCell(tr2,displayed);
 
@@ -143,11 +116,10 @@ export class SummaryVM{
     }
 
     /**
-     * @param {SummaryVM} summaryVM
      * @param {HTMLElement | null} tbody
      * @param {string[]} types
      */
-    renderConsumation(summaryVM,tbody,types) {
+    renderConsumation(tbody,types) {
         const tr2=document.createElement('tr');    
         const tdLabel = document.createElement('td');
         tdLabel.textContent = "　使用";
@@ -157,7 +129,7 @@ export class SummaryVM{
         for(let j=0;j<5;j++){
             // @ts-ignore
     //        let filteredPayments=thisMonth.FilterPayments(payments,j) ;
-            let thisWeek=summaryVM.GetConsumed(j,types);
+            let thisWeek=this.GetConsumed(j,types);
             createNonEditableCell(tr2,thisWeek);
             displayed+=thisWeek;
         }
@@ -169,10 +141,9 @@ export class SummaryVM{
 
     /**
      * @param {HTMLElement | null} tbody
-     * @param {SummaryVM} summaryVM
      * @param {string[]} types
      */
-    renderBudget(tbody,summaryVM,types) {
+    renderBudget(tbody,types) {
         const tr2=document.createElement('tr');    
         const tdLabel = document.createElement('td');
         tdLabel.textContent = "　予算";
@@ -187,13 +158,53 @@ export class SummaryVM{
             let weekBudget=this.budget.GetBudgetValue(j,types[0]);
             if(weekBudget==null) weekBudget=0;
             // @ts-ignore
-            const tdVal=summaryVM.createEditableCell(j,weekBudget);
+            const tdVal=this.createEditableCell(j,weekBudget,types[0]);
             tr2.appendChild(tdVal);
-            displayed+=summaryVM.budget.foodBudgets[j];
+            displayed+=this.budget.foodBudgets[j];
         }
         createNonEditableCell(tr2,displayed);
 
         // @ts-ignore
         tbody.appendChild(tr2);
     }
+
+        /**
+     * @param {number} weekIndex
+     * @param {number} weekBudget
+     * @param {string} budgetTypeString
+     */
+    createEditableCell(weekIndex,weekBudget,budgetTypeString){
+        const tdVal = document.createElement('td');
+        tdVal.classList.add('summaryTD');
+        tdVal.classList.add('editableCell');
+
+        tdVal.textContent = weekBudget.toString();
+
+        tdVal.addEventListener('click', () =>this.OnClickEditableCell(weekIndex,budgetTypeString));
+
+        return tdVal;
+    }
+
+    /**
+     * @param {number} weekIndex
+     * @param {string} budgetTypeString
+     */
+    OnClickEditableCell(weekIndex,budgetTypeString) {
+        if(document==null) throw new Error("document is null");
+        document.getElementById("budgetDialogOverlay")?.classList.remove("hidden");
+
+        this.budgetDialog.OnDecide=(/** @type {number} */ value)=>
+            this.OnDecideValue(value,weekIndex,budgetTypeString);
+    }
+
+    /**
+     * @param {number} value
+     * @param {number} weekIndex
+     * @param {string} budgetTypeString
+     */
+    OnDecideValue(value, weekIndex,budgetTypeString){
+        this.SetBudgetValue(weekIndex,value,budgetTypeString);
+        this.Refresh();
+        this.Save();
+    };
 }

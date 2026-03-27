@@ -2,9 +2,6 @@
 	margin-top: 1em;
 }
 
-.version {
-	margin-top: 1em;
-}
 
 .iosPrompt{
 	margin-top: 1em;
@@ -88,18 +85,13 @@ table#calendarTable th, table#calendarTable td {
 }
 
 /* ダイアログ本体 */
-#inputDialog {
+#inputDialog , #budgetInputDialog {
     background: white;
     padding: 20px;
     border-radius: 10px;
     min-width: 250px;
-}
-
-#budgetInputDialog {
-	background: white;
-	padding: 20px;
-	border-radius: 10px;
-	min-width: 250px;
+	display: flex;
+	flex-direction: column;
 }
 
 .summaryTD{
@@ -113,4 +105,62 @@ table#calendarTable th, table#calendarTable td {
 
 #budgetHeader th{
 	text-align: right;
+}
+
+#amountInput, #budgetAmountInput {
+    height: 50px;
+    font-size: 20px;
+}
+
+#saveBtn, #budgetSaveBtn {
+	margin-top: 10px;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	align-self: center;
+}
+
+#cancelBtn, #budgetCancelBtn {
+	margin-top: 10px;
+	margin-bottom: 16px;
+	padding: 10px 20px;
+	font-size: 10px;
+	cursor: pointer;
+	align-self: flex-end;
+	display: block;
+}
+
+#typeSelect {
+	margin-top: 10px;
+	padding: 5px;
+	font-size: 16px;
+	width: 50%;
+	display:block;
+	align-self:center;
+	text-align: center;
+}
+
+#modeSwitch {
+	margin-top: 1em;
+	text-align: center;
+	align-self: center;
+	width: 100%;
+}
+
+#body{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#calButton,#paymentDetailButton,#fixedCostButton{
+	margin-top: 1em;
+	padding: 10px 20px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+
+#appName{
+	margin-top: 1em;
 }
