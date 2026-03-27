@@ -35,7 +35,10 @@ function main() {
 
   // @ts-ignore
   document.getElementById("cancelBtn").addEventListener("click", closeDialog);
-  
+
+  // @ts-ignore
+  document.getElementById("updateButton").addEventListener("click", updateApp);
+
   //note: before setting next/prev
   const today = new Date();
   const calendar35 = new Calendar35(today.getFullYear(), today.getMonth() + 1);
@@ -79,3 +82,23 @@ function main() {
   }
 }
 
+function updateApp() {
+  navigator.serviceWorker.getRegistration().then(reg => {
+    if (!reg) return;
+
+    // 新しいSWを取得
+    reg.update().then(() => {
+
+      if (reg.waiting) {
+        // 待機中SWを即反映
+        reg.waiting.postMessage('SKIP_WAITING');
+      }
+
+      // 少し待ってリロード
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+
+    });
+  });
+}
