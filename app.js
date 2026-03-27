@@ -11,6 +11,8 @@ import { BudgetDialog } from "./js/budgetDialog.js";
 main();
 
 function main() {
+  navigator.serviceWorker.register('/service-worker.js');
+
   document.addEventListener("DOMContentLoaded", () => {
     populateExpenseTypes();
   });
