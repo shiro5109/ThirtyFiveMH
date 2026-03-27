@@ -1,27 +1,26 @@
 ﻿<!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>35 ice cream -MH-</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style0109.css">
     <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
     <div class="body">
-        <h1>35 ice cream -MH-</h1>
+        <table id="modeSwitch">
+            <thead>
+                <tr>
+                    <th><button id="calButton">カレンダー</button></th>
+                    <th><button id="paymentDetailButton" type="button">変動費履歴</button></th>
+                    <th><button id="fixedCostButton" type="button">固定費</button></th>
+                </tr>
+            </thead>
+        </table>
 
-        <div>
-            <table id="modeSwitch">
-                <thead>
-                    <tr>
-                        <th><button>カレンダー</button></th>
-                        <th><button>変動費履歴</button></th>
-                        <th><button>固定費</button></th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
         <div id="iosPrompt" style="display:none;" class="iosPrompt">
             iPhoneの場合、Safariの共有ボタンから「ホーム画面に追加」を選んでください
         </div>
@@ -35,7 +34,15 @@
         <div id="calendarWrapper">
             <table id="calendarTable">
                 <thead>
-                    <tr><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th></tr>
+                    <tr>
+                        <th>月</th>
+                        <th>火</th>
+                        <th>水</th>
+                        <th>木</th>
+                        <th>金</th>
+                        <th>土</th>
+                        <th>日</th>
+                    </tr>
                 </thead>
                 <tbody id="calendarBody"><!--js--></tbody>
             </table>
@@ -44,8 +51,7 @@
         <div class="budgetTable">
             <table id="budgetTable">
                 <thead>
-                    <tr>
-                        <th></th>
+                    <tr id="budgetHeader">
                         <th></th>
                         <th>週1</th>
                         <th>週2</th>
@@ -61,13 +67,35 @@
             </table>
         </div>
 
-        <button id="recalculate">再計算</button>
+<!--        <button id="recalculate">再計算</button>-->
 
+        <div id="appName">
+        35 ice cream -MH-
+        </div>
         <div class="version">
-            ver 0.103
+            ver 0.109
         </div>
 
     </div>
-    <script src="./app.js"></script>
+
+    <div id="dialogOverlay" class="hidden">
+        <div id="inputDialog">
+            <button id="cancelBtn">キャンセル</button>
+            <input type="text" id="amountInput" placeholder="金額" inputmode="numeric">
+            <select id="typeSelect"></select>
+            <button id="saveBtn">保存</button>
+        </div>
+    </div>
+
+    <div id="budgetDialogOverlay" class="hidden">
+        <div id="budgetInputDialog">
+            <button id="budgetCancelBtn">キャンセル</button>
+            <input type="text" id="budgetAmountInput" placeholder="金額" inputmode="numeric">
+            <button id="budgetSaveBtn">保存</button>
+        </div>
+    </div>
+
+    <script type="module" src="./app.js"></script>
 </body>
+
 </html>

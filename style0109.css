@@ -1,0 +1,166 @@
+.budgetTable{
+	margin-top: 1em;
+}
+
+
+.iosPrompt{
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+#month{
+	margin-top: 1em;
+	text-align: center;
+}
+
+#calendarWrapper{
+	width: 90%;
+	max-width: 900px;
+	margin: 0 auto;
+	text-align: center;
+	table-layout: fixed;
+}
+
+table#calendarTable{
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0 auto;
+	text-align: center;
+}
+
+table#budgetTable{
+	width: 90%;
+	border-collapse: collapse;
+	margin: 0 auto;
+	text-align: left;
+}
+
+.body{
+	background-color: mediumpurple;
+}
+
+table#calendarTable th, table#calendarTable td {
+	border: 1px solid #333;
+	padding: 5px;
+	background-color: white;
+	font-size: 12px;
+	width: 14.28%;
+}
+
+.hidden {
+    display: none;
+}
+
+#dialogOverlay.hidden {
+	display: none !important;
+}
+
+/* 背景の黒い半透明 */
+#dialogOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+}
+
+#budgetDialogOverlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.4);
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	z-index: 1000;
+}
+
+#budgetDialogOverlay.hidden {
+	display: none !important;
+}
+
+/* ダイアログ本体 */
+#inputDialog , #budgetInputDialog {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 250px;
+	display: flex;
+	flex-direction: column;
+}
+
+.summaryTD{
+	text-align: right;
+	border: 1px solid #333;
+}
+
+.editableCell{
+	background-color: white;
+}
+
+#budgetHeader th{
+	text-align: right;
+}
+
+#amountInput, #budgetAmountInput {
+    height: 50px;
+    font-size: 20px;
+}
+
+#saveBtn, #budgetSaveBtn {
+	margin-top: 10px;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	align-self: center;
+}
+
+#cancelBtn, #budgetCancelBtn {
+	margin-top: 10px;
+	margin-bottom: 16px;
+	padding: 10px 20px;
+	font-size: 10px;
+	cursor: pointer;
+	align-self: flex-end;
+	display: block;
+}
+
+#typeSelect {
+	margin-top: 10px;
+	padding: 5px;
+	font-size: 16px;
+	width: 50%;
+	display:block;
+	align-self:center;
+	text-align: center;
+}
+
+#modeSwitch {
+	margin-top: 1em;
+	text-align: center;
+	align-self: center;
+	width: 100%;
+}
+
+#body{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#calButton,#paymentDetailButton,#fixedCostButton{
+	margin-top: 1em;
+	padding: 10px 20px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+
+#appName{
+	margin-top: 1em;
+}
