@@ -84,21 +84,46 @@ function main() {
 
 function updateApp() {
   navigator.serviceWorker.getRegistration().then(reg => {
-    if (!reg) return;
+    if (!reg) {
+      console.log("SWなし");
+      return;
+    }
 
-    // 新しいSWを取得
     reg.update().then(() => {
+      console.log("update()実行");
 
+      // すでにwaitingがある場合
       if (reg.waiting) {
-        // 待機中SWを即反映
+        console.log("waitingあり");
         reg.waiting.postMessage('SKIP_WAITING');
+        reloadAfterControllerChange();
+        return;
       }
 
-      // 少し待ってリロード
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
+      // installing中を監視
+      if (reg.installing) {
+        console.log("installing監視");
 
+        reg.installing.addEventListener('statechange', () => {
+          // @ts-ignore
+          if (reg.installing.state === 'installed') {
+            console.log("installedになった");
+
+            if (reg.waiting) {
+              reg.waiting.postMessage('SKIP_WAITING');
+            }
+          }
+        });
+      }
+
+      reloadAfterControllerChange();
     });
+  });
+}
+
+function reloadAfterControllerChange() {
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    console.log("controller変更 → reload");
+    window.location.reload();
   });
 }
