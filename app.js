@@ -8,10 +8,20 @@ import { populateExpenseTypes } from "./js/populateExpenseTypes.js";
 import { DialogOverLay } from "./js/DialogOverLay.js";
 import { BudgetDialog } from "./js/budgetDialog.js";
 
+let log="start log";
 main();
 
 function main() {
-  navigator.serviceWorker.register('/service-worker.js');
+  //--before service worker registration--
+  // @ts-ignore
+  document.getElementById("showLogButton").addEventListener("click", () => {
+    alert(log);
+  });
+  // @ts-ignore
+  document.getElementById("clearCacheButton").addEventListener("click", () => {clearAppCache();});
+  //--
+
+  navigator.serviceWorker.register('./service-worker.js');
 
   document.addEventListener("DOMContentLoaded", () => {
     populateExpenseTypes();
@@ -39,7 +49,9 @@ function main() {
   document.getElementById("cancelBtn").addEventListener("click", closeDialog);
 
   // @ts-ignore
-  document.getElementById("updateButton").addEventListener("click", updateApp);
+  document.getElementById("updateButton").addEventListener("click", forceUpdateApp);
+
+
 
   //note: before setting next/prev
   const today = new Date();
@@ -83,33 +95,61 @@ function main() {
     localStorage.setItem("data", JSON.stringify(data));
   }
 }
+function forceUpdateApp() {
+  myLog("強制更新開始");
 
+  // ① SW削除
+  navigator.serviceWorker.getRegistrations().then(regs => {
+    regs.forEach(reg => {
+      reg.unregister();
+      myLog("SW削除");
+    });
+  });
+
+  // ② キャッシュ削除
+  caches.keys().then(keys => {
+    keys.forEach(key => {
+      caches.delete(key);
+      myLog("cache削除: " + key);
+    });
+  });
+
+  // ③ 少し待ってリロード
+  setTimeout(() => {
+    myLog("リロード");
+    window.location.reload();
+  }, 500);
+}
 function updateApp() {
   navigator.serviceWorker.getRegistration().then(reg => {
+    myLog("start update app");
+
     if (!reg) {
-      console.log("SWなし");
+      myLog("SWなし");
       return;
     }
 
     reg.update().then(() => {
-      console.log("update()実行");
+      myLog("update()実行");
 
       // すでにwaitingがある場合
       if (reg.waiting) {
-        console.log("waitingあり");
-        reg.waiting.postMessage('SKIP_WAITING');
+        myLog("waitingあり");
         reloadAfterControllerChange();
+        reg.waiting.postMessage('SKIP_WAITING');
         return;
       }
 
+      myLog("installing監視判定前");
+
       // installing中を監視
       if (reg.installing) {
-        console.log("installing監視");
+        myLog("installing監視");
 
         reg.installing.addEventListener('statechange', () => {
           // @ts-ignore
           if (reg.installing.state === 'installed') {
-            console.log("installedになった");
+            myLog("installedになった");
 
             if (reg.waiting) {
               reg.waiting.postMessage('SKIP_WAITING');
@@ -118,6 +158,11 @@ function updateApp() {
         });
       }
 
+      myLog("リロード前");
+      myLog("waiting: " + !!reg.waiting);
+      myLog("installing: " + !!reg.installing);
+      myLog("active: " + !!reg.active);
+
       reloadAfterControllerChange();
     });
   });
@@ -125,7 +170,47 @@ function updateApp() {
 
 function reloadAfterControllerChange() {
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    console.log("controller変更 → reload");
+    myLog("controller変更 → reload");
     window.location.reload();
   });
+}
+
+/**
+ * @param {string} msg
+ */
+function myLog(msg){
+  // @ts-ignore
+  log+="\n"+msg;
+  console.log(msg);
+}
+
+function clearAppCache() {
+  myLog("キャッシュ削除開始");
+  
+  if(navigator==null || !navigator.serviceWorker) {
+    myLog("Service Workerが利用できない");
+    return;
+  }
+
+  // ① Service Worker削除
+  navigator.serviceWorker.getRegistrations().then(regs => {
+    regs.forEach(reg => {
+      reg.unregister();
+      myLog("SW削除");
+    });
+  });
+
+  myLog("caches削除開始");
+
+  // ② Cache Storage削除
+  caches.keys().then(keys => {
+    keys.forEach(key => {
+      caches.delete(key);
+    });
+  });
+
+  // ③ 少し待ってリロード
+  setTimeout(() => {
+    window.location.reload();
+  }, 500);
 }
