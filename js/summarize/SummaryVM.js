@@ -2,11 +2,11 @@
 
 import { BudgetDialog } from "./budgetDialog.js";
 import { createNonEditableCell } from "./createNonEditableCell.js";
-import { Budget } from "./logic/Budget.js";
-import { Calendar35 } from "./logic/Calendar35.1.js";
-import { dateDiffInDays } from "./logic/dateDiffInDays.1.js";
-import { ExpenseTypes } from "./logic/ExpenseTypes.js";
-import { Payment } from "./logic/Payment.1.js";
+import { Budget } from "../logic/Budget.js";
+import { Calendar35 } from "../logic/Calendar35.1.js";
+import { dateDiffInDays } from "../logic/dateDiffInDays.1.js";
+import { ExpenseTypes } from "../logic/ExpenseTypes.js";
+import { Payment } from "../logic/Payment.1.js";
 
 export class SummaryVM{
     /**
@@ -54,25 +54,17 @@ export class SummaryVM{
     }
     /**
      * @param {number} weekIndex
+     * @param {string[]} types
      */
-    GetRemaining(weekIndex){
-        let used=this.GetConsumed(weekIndex,[]);//TODO
-        // let start=this.month35.CalcFirstDate();
-        
-        // this.payments.forEach(
-        //     p=>{
-        //         let diff=dateDiffInDays(start,p.date);
-        //         if(diff>=weekIndex*7 && diff<(weekIndex+1)*7){
-        //             used+=p.amount;
-        //         }
-        // });
-
-        return this.budget.foodBudgets[weekIndex]-used;
+    GetRemaining(weekIndex,types){
+       let weekBudget=this.budget.GetBudgetValue(weekIndex,types[0]);
+       if(weekBudget==null) weekBudget=0;
+       return weekBudget - this.GetConsumed(weekIndex,types);
     }
 
     /**
      * @param {number} weekIndex
-     * @param {any[]} types
+     * @param {string[]} types
      */
     GetConsumed(weekIndex,types){
         let used=0;
@@ -93,8 +85,11 @@ export class SummaryVM{
 
      /**
      * @param {HTMLElement | null} tbody
+     * @param {string[]} types
      */
-    renderRemaining(tbody) {
+    renderRemaining(tbody,types) {
+        if(tbody==null) throw new Error("tbody is null");
+
         const tr2=document.createElement('tr');    
         const tdLabel = document.createElement('td');
         tdLabel.textContent = "　残り";
@@ -102,16 +97,12 @@ export class SummaryVM{
 
         var displayed=0;
         for(let j=0;j<5;j++){
-            // @ts-ignore
-            let filteredPayments=[];//TODO
-    //            p.date.getFullYear() === thisMonth.year && p.date.getMonth() === thisMonth.month - 1 && Math.floor((p.date.getDate() - 1) / 7) === j);
-            // @ts-ignore
-            createNonEditableCell(tr2,this.GetRemaining(j));
-            displayed+=this.GetRemaining(j);
+            let remaining=this.GetRemaining(j,types);
+            createNonEditableCell(tr2,remaining);
+            displayed+=remaining;
         }
         createNonEditableCell(tr2,displayed);
 
-        // @ts-ignore
         tbody.appendChild(tr2);
     }
 
@@ -127,8 +118,6 @@ export class SummaryVM{
 
         let displayed=0;
         for(let j=0;j<5;j++){
-            // @ts-ignore
-    //        let filteredPayments=thisMonth.FilterPayments(payments,j) ;
             let thisWeek=this.GetConsumed(j,types);
             createNonEditableCell(tr2,thisWeek);
             displayed+=thisWeek;
@@ -144,6 +133,8 @@ export class SummaryVM{
      * @param {string[]} types
      */
     renderBudget(tbody,types) {
+        if(tbody==null) throw new Error("tbody is null");
+
         const tr2=document.createElement('tr');    
         const tdLabel = document.createElement('td');
         tdLabel.textContent = "　予算";
@@ -154,17 +145,14 @@ export class SummaryVM{
             console.log(this);
             console.log(this.budget);
             console.log(types);
-            // @ts-ignore
             let weekBudget=this.budget.GetBudgetValue(j,types[0]);
             if(weekBudget==null) weekBudget=0;
-            // @ts-ignore
             const tdVal=this.createEditableCell(j,weekBudget,types[0]);
             tr2.appendChild(tdVal);
-            displayed+=this.budget.foodBudgets[j];
+            displayed+=weekBudget;
         }
         createNonEditableCell(tr2,displayed);
 
-        // @ts-ignore
         tbody.appendChild(tr2);
     }
 

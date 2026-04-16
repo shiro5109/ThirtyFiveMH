@@ -1,10 +1,10 @@
 // @ts-check
 
-import { DialogOverLay } from "./DialogOverLay.js";
+import { DialogOverLay } from "../dialog/DialogOverLay.js";
 
 /**
  * @param {(Date | null)[]} dates
- * @param {import("./logic/Data.js").Data} data
+ * @param {import("../logic/Data.js").Data} data
  * @param {DialogOverLay} dialogOverLay
  */
 export function calendarTable(dates,data,dialogOverLay) {

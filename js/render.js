@@ -1,12 +1,12 @@
 // @ts-check
 
-import { calendarTable } from "./calendarTable.1.js";
+import { calendarTable } from "./calendar/calendarTable.1.js";
 import { dateDiffInDays } from "./logic/dateDiffInDays.1.js";
-import { renderTable } from "./renderTable.2.js";
+import { renderTable } from "./summarize/renderTable.2.js";
 import { Data } from "./logic/Data.js";
 import { Calendar35 } from "./logic/Calendar35.1.js";
-import { DialogOverLay } from "./DialogOverLay.js";
-import { BudgetDialog } from "./budgetDialog.js";
+import { DialogOverLay } from "./dialog/DialogOverLay.js";
+import { BudgetDialog } from "./summarize/budgetDialog.js";
 
 /**
  * @param {Data} data

@@ -1,7 +1,7 @@
 // @ts-check
 
-import { BudgetDialog } from "../budgetDialog.js";
-import { SummaryVM } from "../SummaryVM.js";
+import { BudgetDialog } from "../summarize/budgetDialog.js";
+import { SummaryVM } from "../summarize/SummaryVM.js";
 import { Budget } from "./Budget.js";
 import { Calendar35 } from "./Calendar35.1.js";
 import { Payment } from "./Payment.1.js";

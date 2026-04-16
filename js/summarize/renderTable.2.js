@@ -1,11 +1,6 @@
 // @ts-check
 
-import { Calendar35 } from "./logic/Calendar35.1.js";
-import { Payment } from "./logic/Payment.1.js";
 import { SummaryVM } from "./SummaryVM.js";
-import { Budget } from "./logic/Budget.js";
-import { ExpenseTypes } from "./logic/ExpenseTypes.js";
-import { createNonEditableCell } from "./createNonEditableCell.js";
 
 
 /**
@@ -43,7 +38,7 @@ export function renderTable(summaryVM) {
 
         summaryVM.renderBudget(tbody,types);
         summaryVM.renderConsumation(tbody,types);
-        summaryVM.renderRemaining(tbody);
+        summaryVM.renderRemaining(tbody,types);
     });
 }
 

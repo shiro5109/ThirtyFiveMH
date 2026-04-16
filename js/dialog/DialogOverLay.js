@@ -9,7 +9,7 @@ export class DialogOverLay {
     date = null;
 
     /**
-     * @param {import("./logic/Data.js").Data} data
+     * @param {import("../logic/Data.js").Data} data
      */
     constructor(data) {
         this.data = data;
