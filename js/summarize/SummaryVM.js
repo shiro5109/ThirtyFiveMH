@@ -2,11 +2,11 @@
 
 import { BudgetDialog } from "./budgetDialog.js";
 import { createNonEditableCell } from "./createNonEditableCell.js";
-import { Budget } from "./logic/Budget.js";
-import { Calendar35 } from "./logic/Calendar35.1.js";
-import { dateDiffInDays } from "./logic/dateDiffInDays.1.js";
-import { ExpenseTypes } from "./logic/ExpenseTypes.js";
-import { Payment } from "./logic/Payment.1.js";
+import { Budget } from "../logic/Budget.js";
+import { Calendar35 } from "../logic/Calendar35.1.js";
+import { dateDiffInDays } from "../logic/dateDiffInDays.1.js";
+import { ExpenseTypes } from "../logic/ExpenseTypes.js";
+import { Payment } from "../logic/Payment.1.js";
 
 export class SummaryVM{
     /**

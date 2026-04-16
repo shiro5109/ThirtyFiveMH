@@ -4,9 +4,9 @@ import { Calendar35 } from "./js/logic/Calendar35.1.js";
 import { Data } from "./js/logic/Data.js";
 import { render } from "./js/render.js";
 import {closeDialog} from "./js/dialog/closeDialog.js";
-import { populateExpenseTypes } from "./js/populateExpenseTypes.js";
+import { populateExpenseTypes } from "./js/calendar/populateExpenseTypes.js";
 import { DialogOverLay } from "./js/dialog/DialogOverLay.js";
-import { BudgetDialog } from "./js/budgetDialog.js";
+import { BudgetDialog } from "./js/summarize/budgetDialog.js";
 
 let log="start log";
 main();
