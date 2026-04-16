@@ -5,7 +5,7 @@ import { dateDiffInDays } from "./logic/dateDiffInDays.1.js";
 import { renderTable } from "./renderTable.2.js";
 import { Data } from "./logic/Data.js";
 import { Calendar35 } from "./logic/Calendar35.1.js";
-import { DialogOverLay } from "./DialogOverLay.js";
+import { DialogOverLay } from "./dialog/DialogOverLay.js";
 import { BudgetDialog } from "./budgetDialog.js";
 
 /**
