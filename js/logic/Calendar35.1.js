@@ -2,8 +2,48 @@
 
 import { dateDiffInDays } from "./dateDiffInDays.1.js";
 import { Payment } from "./Payment.1.js";
+import { CalendarCell } from "../calendar/CalendarCell.js";
 
 export class Calendar35 {
+    /**
+     * @param {CalendarCell} calendarCell
+     */
+    RenderCalendarTable(calendarCell) {
+        const dates = this.CreateCells();
+        calendarCell.RenderCalendarTable(dates);
+    }
+
+    UpdateYearMonthText() {
+        const currentMonthElement=document.getElementById('currentMonth');
+        if(currentMonthElement==null) throw new Error("currentMonth not found");
+        currentMonthElement.textContent = `${this.year}年${this.month}月`;
+        //FUTURE: 正式には2月1日ならthis.month=1となったほうが親切
+    }
+
+    CreateCells() {
+        const firstDay31 = this.CalcFirstDate();
+        console.log(`firstDay31: ${firstDay31}`);
+        const totalDays = dateDiffInDays(new Date(this.year, 0, 1), firstDay31) + 1;
+        console.log(`totalDays: ${totalDays}`);
+
+        const dates = [];
+
+        const firstDayWeekday = firstDay31.getDay();
+        const blankCellNum = (firstDayWeekday + 6) % 7; //月曜始まりに変換
+        for (let i = 0; i < blankCellNum; i++) {
+            dates.push(null);
+        }
+        for (let i = 1; i <= 35; i++) {
+            let date = new Date(this.year, 0, 1);
+            date.setDate(totalDays + i - 1);
+            dates.push(date);
+        }
+        for (let i = dates.length; i < 42; i++) {
+            dates.push(null);
+        }
+        return dates;
+    }
+
     IncreaseMonth() {
       if(this.month===12){
         this.year++;

@@ -6,7 +6,7 @@ import { SummaryVM } from "./SummaryVM.js";
 /**
  * @param {SummaryVM} summaryVM
  */
-export function renderTable(summaryVM) {
+export function renderTable(summaryVM) {//REFACTOR: これ、SummaryVMのメソッドにしたほうがいいかも
     const categories = ["食費、日用品、ガソリン", "医療費", "交際費、外食"];
 
     const tbody = document.getElementById('tableBody');
