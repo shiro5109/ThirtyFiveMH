@@ -37,6 +37,8 @@ table#budgetTable{
 
 .body{
 	background-color: mediumpurple;
+	font-family: "Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",
+	system-ui,sans-serif;
 }
 
 table#calendarTable th, table#calendarTable td {

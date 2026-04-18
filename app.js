@@ -2,11 +2,12 @@
 
 import { Calendar35 } from "./js/logic/Calendar35.1.js";
 import { Data } from "./js/logic/Data.js";
-import { render } from "./js/render.js";
 import {closeDialog} from "./js/dialog/closeDialog.js";
 import { populateExpenseTypes } from "./js/calendar/populateExpenseTypes.js";
 import { DialogOverLay } from "./js/dialog/DialogOverLay.js";
 import { BudgetDialog } from "./js/summarize/budgetDialog.js";
+import { CalendarCell } from "./js/calendar/CalendarCell.js";
+import { renderTable } from "./js/summarize/renderTable.2.js";
 
 let log="start log";
 main();
@@ -73,28 +74,29 @@ function main() {
   dialog.InitializeSaveButton(refresh);
   const budgetDialog=new BudgetDialog();
   
-  // @ts-ignore
-  document.getElementById('prev').addEventListener('click', () => {
+  const calendarCell = new CalendarCell(dialog, data);
+
+  document.getElementById('prev')?.addEventListener('click', () => {
      calendar35.DecreaseMonth(); refresh(); });
-  // @ts-ignore
-  document.getElementById('next').addEventListener('click', () => { 
+  document.getElementById('next')?.addEventListener('click', () => { 
     calendar35.IncreaseMonth(); refresh(); });
 
   refresh();
 
   function refresh(){
-    render(
-      data, 
-      calendar35,
-      dialog,()=>{save();},
-      ()=>refresh(),
-      budgetDialog);
+    const summaryVM=data.CreateSummaryVM(calendar35,()=>save(),()=>refresh(),budgetDialog);
+    renderTable(summaryVM);
+    calendar35.RenderCalendarTable(calendarCell);
+    calendar35.UpdateYearMonthText();
   }
 
   function save(){
     localStorage.setItem("data", JSON.stringify(data));
   }
 }
+
+//REFACTOR: これらはSW更新のためのコード。別ファイルに切り出すべきかも
+
 function forceUpdateApp() {
   myLog("強制更新開始");
 

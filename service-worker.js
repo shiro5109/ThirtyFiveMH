@@ -1,8 +1,8 @@
-const CACHE_NAME = "myapp-cache-v0212";
+const CACHE_NAME = "myapp-cache-v0221";
 const urlsToCache = [
     "./",
     "./index.html",
-    "./style0200.css",
+    "./style0221.css",
     "./app.js",
     "./manifest.json"
 ];
