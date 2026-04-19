@@ -8,6 +8,7 @@ import { DialogOverLay } from "./js/dialog/DialogOverLay.js";
 import { BudgetDialog } from "./js/summarize/budgetDialog.js";
 import { CalendarCell } from "./js/calendar/CalendarCell.js";
 import { renderTable } from "./js/summarize/renderTable.2.js";
+import { loadComponent } from "./js/common/loadComponent.js";
 
 let log="start log";
 main();
