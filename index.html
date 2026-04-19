@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>35 ice cream -MH-</title>
-    <link rel="stylesheet" href="style0221.css">
+    <link rel="stylesheet" href="style0230.css">
     <link rel="manifest" href="manifest.json">
 </head>
 
@@ -14,9 +14,11 @@
         <table id="modeSwitch">
             <thead>
                 <tr>
-                    <th><button id="calButton">カレンダー</button></th>
-                    <th><button id="paymentDetailButton" type="button">変動費履歴</button></th>
-                    <th><button id="fixedCostButton" type="button">固定費</button></th>
+                    <th><button id="calButton" class="tab-button active" 
+                        data-tab="tabCalendar">カレンダー</button></th>
+                    <th><button id="paymentDetailButton" type="button" class="tab-button" 
+                        data-tab="tabEditExpense">変動費履歴</button></th>
+                    <th><button id="fixedCostButton" type="button" class="hidden">固定費</button></th>
                 </tr>
             </thead>
         </table>
@@ -31,9 +33,17 @@
             <button id="next">翌月</button>
         </div>
 
-        <div id="calendarWrapper"></div><!--component html-->
-
-        <div id="budgetTable2" class="budgetTable"></div><!--component html-->
+        <!-- タブコンテンツ -->
+        <div class="tab-contents">
+            <div id="tabCalendar" class="tab-content active">
+                <div id="calendarWrapper"></div><!--component html-->
+                <div id="budgetTable2" class="budgetTable"></div><!--component html-->
+            </div>
+            <div id="tabEditExpense" class="tab-content">
+                <h2>プロフィール</h2>
+                <p>あなたのプロフィール情報です。</p>
+            </div>
+        </div>
 
         <div id="appName">35 ice cream -MH-</div>
         <div class="version">

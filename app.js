@@ -25,10 +25,6 @@ async function main() {
 
   navigator.serviceWorker.register('./service-worker.js');
 
-  document.addEventListener("DOMContentLoaded", () => {
-    populateExpenseTypes();
-  });
-
   try{
     await loadComponent("calendarWrapper","./js/calendar/calendar.html");
     await loadComponent("budgetTable2","./js/summarize/budgetTable.html");
@@ -37,6 +33,31 @@ async function main() {
     throw new Error("コンポーネントの読み込みに失敗: "+e);
   }
 
+  populateExpenseTypes();
+
+  const buttons = document.querySelectorAll('.tab-button');
+  const contents = document.querySelectorAll('.tab-content');
+
+  myLog("addEventListener for buttons: "+buttons.length);
+  buttons.forEach(button => {
+    myLog("addEventListener for button: "+button.id);
+
+    button.addEventListener('click', () => {
+      const targetTab = button.getAttribute('data-tab');
+      if(targetTab==null) throw new Error("targetTab is null");
+
+      // すべてのボタンとコンテンツから active クラスを削除
+      buttons.forEach(btn => btn.classList.remove('active'));
+      contents.forEach(content => content.classList.remove('active'));
+
+      // クリックされたボタンと対応するコンテンツに active クラスを追加
+      button.classList.add('active');
+      const targetContent = document.getElementById(targetTab);
+      if(targetContent==null) throw new Error("targetContent is null");
+      targetContent.classList.add('active');
+    });
+  });
+
   // iOS判定してメッセージを表示
   if (window.matchMedia("(display-mode: standalone)").matches === false) {
     // @ts-ignore
@@ -44,10 +65,10 @@ async function main() {
   }
 
   // @ts-ignore
-  document.getElementById("paymentDetailButton").addEventListener("click", (e) => {
-    e.preventDefault();
-    alert("この機能はまだ使えません。");
-  });
+  // document.getElementById("paymentDetailButton").addEventListener("click", (e) => {
+  //   e.preventDefault();
+  //   alert("この機能はまだ使えません。");
+  // });
 
   // @ts-ignore
   document.getElementById("fixedCostButton").addEventListener("click", (e) => {

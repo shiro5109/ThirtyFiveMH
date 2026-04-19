@@ -170,3 +170,24 @@ table#calendarTable th, table#calendarTable td {
 #develop{
 	margin-top: 1em;
 }
+
+.tab-button:hover {
+  background: #f0f0f0;
+}
+
+.tab-button.active {
+  background: mediumpurple;
+  color: black;
+  font-weight: bold;
+}
+
+/* タブコンテンツ */
+.tab-content {
+  display: none;
+  padding: 30px;
+  min-height: 200px;
+}
+
+.tab-content.active {
+  display: block;
+}
