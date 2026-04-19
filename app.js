@@ -31,8 +31,10 @@ async function main() {
 
   try{
     await loadComponent("calendarWrapper","./js/calendar/calendar.html");
+    await loadComponent("budgetTable2","./js/summarize/budgetTable.html");
+    await loadComponent("dialogOverlay","./js/calendar/dialogOverlay.html");
   }catch(e){
-    throw new Error("カレンダーの読み込みに失敗: "+e);
+    throw new Error("コンポーネントの読み込みに失敗: "+e);
   }
 
   // iOS判定してメッセージを表示
