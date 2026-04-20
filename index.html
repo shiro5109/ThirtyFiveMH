@@ -31,49 +31,13 @@
             <button id="next">翌月</button>
         </div>
 
-        <div id="calendarWrapper">
-            <table id="calendarTable">
-                <thead>
-                    <tr>
-                        <th>月</th>
-                        <th>火</th>
-                        <th>水</th>
-                        <th>木</th>
-                        <th>金</th>
-                        <th>土</th>
-                        <th>日</th>
-                    </tr>
-                </thead>
-                <tbody id="calendarBody"><!--js--></tbody>
-            </table>
-        </div>
+        <div id="calendarWrapper"></div><!--component html-->
 
-        <div class="budgetTable">
-            <table id="budgetTable">
-                <thead>
-                    <tr id="budgetHeader">
-                        <th></th>
-                        <th>週1</th>
-                        <th>週2</th>
-                        <th>週3</th>
-                        <th>週4</th>
-                        <th>週5</th>
-                        <th>計</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- JSで行を追加 -->
-                </tbody>
-            </table>
-        </div>
+        <div id="budgetTable2" class="budgetTable"></div><!--component html-->
 
-<!--        <button id="recalculate">再計算</button>-->
-
-        <div id="appName">
-        35 ice cream -MH-
-        </div>
+        <div id="appName">35 ice cream -MH-</div>
         <div class="version">
-            ver 0.221
+            ver 0.230
             <button id="updateButton">最新版に更新</button>
         </div>
         <div id="develop">
@@ -81,22 +45,14 @@
             <button id="clearCacheButton">開発用キャッシュ削除</button>
         </div>
 
-    </div>
+        <div id="dialogOverlay" class="hidden"></div>
 
-    <div id="dialogOverlay" class="hidden">
-        <div id="inputDialog">
-            <button id="cancelBtn">キャンセル</button>
-            <input type="text" id="amountInput" placeholder="金額" inputmode="numeric">
-            <select id="typeSelect"></select>
-            <button id="saveBtn">保存</button>
-        </div>
-    </div>
-
-    <div id="budgetDialogOverlay" class="hidden">
-        <div id="budgetInputDialog">
-            <button id="budgetCancelBtn">キャンセル</button>
-            <input type="text" id="budgetAmountInput" placeholder="金額" inputmode="numeric">
-            <button id="budgetSaveBtn">保存</button>
+        <div id="budgetDialogOverlay" class="hidden">
+            <div id="budgetInputDialog">
+                <button id="budgetCancelBtn">キャンセル</button>
+                <input type="text" id="budgetAmountInput" placeholder="金額" inputmode="numeric">
+                <button id="budgetSaveBtn">保存</button>
+            </div>
         </div>
     </div>
 

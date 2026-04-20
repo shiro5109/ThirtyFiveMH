@@ -8,11 +8,12 @@ import { DialogOverLay } from "./js/dialog/DialogOverLay.js";
 import { BudgetDialog } from "./js/summarize/budgetDialog.js";
 import { CalendarCell } from "./js/calendar/CalendarCell.js";
 import { renderTable } from "./js/summarize/renderTable.2.js";
+import { loadComponent } from "./js/common/loadComponent.js";
 
 let log="start log";
-main();
+await main();
 
-function main() {
+async function main() {
   //--before service worker registration--
   // @ts-ignore
   document.getElementById("showLogButton").addEventListener("click", () => {
@@ -27,6 +28,14 @@ function main() {
   document.addEventListener("DOMContentLoaded", () => {
     populateExpenseTypes();
   });
+
+  try{
+    await loadComponent("calendarWrapper","./js/calendar/calendar.html");
+    await loadComponent("budgetTable2","./js/summarize/budgetTable.html");
+    await loadComponent("dialogOverlay","./js/calendar/dialogOverlay.html");
+  }catch(e){
+    throw new Error("コンポーネントの読み込みに失敗: "+e);
+  }
 
   // iOS判定してメッセージを表示
   if (window.matchMedia("(display-mode: standalone)").matches === false) {
