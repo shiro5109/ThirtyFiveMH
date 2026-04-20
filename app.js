@@ -2,13 +2,14 @@
 
 import { Calendar35 } from "./js/logic/Calendar35.1.js";
 import { Data } from "./js/logic/Data.js";
-import {closeDialog} from "./js/dialog/closeDialog.js";
+import { closeDialog } from "./js/dialog/closeDialog.js";
 import { populateExpenseTypes } from "./js/calendar/populateExpenseTypes.js";
 import { DialogOverLay } from "./js/dialog/DialogOverLay.js";
 import { BudgetDialog } from "./js/summarize/budgetDialog.js";
 import { CalendarCell } from "./js/calendar/CalendarCell.js";
 import { renderTable } from "./js/summarize/renderTable.2.js";
 import { loadComponent } from "./js/common/loadComponent.js";
+import { EditExpense } from "./js/editExpense/EditExpense.js";
 
 let log="start log";
 await main();
@@ -29,46 +30,20 @@ async function main() {
     await loadComponent("calendarWrapper","./js/calendar/calendar.html");
     await loadComponent("budgetTable2","./js/summarize/budgetTable.html");
     await loadComponent("dialogOverlay","./js/calendar/dialogOverlay.html");
+    await loadComponent("tabEditExpense","./js/editExpense/editExpense.html");
   }catch(e){
     throw new Error("コンポーネントの読み込みに失敗: "+e);
   }
 
   populateExpenseTypes();
 
-  const buttons = document.querySelectorAll('.tab-button');
-  const contents = document.querySelectorAll('.tab-content');
-
-  myLog("addEventListener for buttons: "+buttons.length);
-  buttons.forEach(button => {
-    myLog("addEventListener for button: "+button.id);
-
-    button.addEventListener('click', () => {
-      const targetTab = button.getAttribute('data-tab');
-      if(targetTab==null) throw new Error("targetTab is null");
-
-      // すべてのボタンとコンテンツから active クラスを削除
-      buttons.forEach(btn => btn.classList.remove('active'));
-      contents.forEach(content => content.classList.remove('active'));
-
-      // クリックされたボタンと対応するコンテンツに active クラスを追加
-      button.classList.add('active');
-      const targetContent = document.getElementById(targetTab);
-      if(targetContent==null) throw new Error("targetContent is null");
-      targetContent.classList.add('active');
-    });
-  });
+  initializeTabSystem();
 
   // iOS判定してメッセージを表示
   if (window.matchMedia("(display-mode: standalone)").matches === false) {
     // @ts-ignore
     document.getElementById('iosPrompt').style.display = 'block';
   }
-
-  // @ts-ignore
-  // document.getElementById("paymentDetailButton").addEventListener("click", (e) => {
-  //   e.preventDefault();
-  //   alert("この機能はまだ使えません。");
-  // });
 
   // @ts-ignore
   document.getElementById("fixedCostButton").addEventListener("click", (e) => {
@@ -106,6 +81,8 @@ async function main() {
   
   const calendarCell = new CalendarCell(dialog, data);
 
+  const editExpense=new EditExpense(data,()=>refresh());
+
   document.getElementById('prev')?.addEventListener('click', () => {
      calendar35.DecreaseMonth(); refresh(); });
   document.getElementById('next')?.addEventListener('click', () => { 
@@ -118,6 +95,7 @@ async function main() {
     renderTable(summaryVM);
     calendar35.RenderCalendarTable(calendarCell);
     calendar35.UpdateYearMonthText();
+    editExpense.RenderExpenseTable();
   }
 
   function save(){
@@ -246,3 +224,29 @@ function clearAppCache() {
     window.location.reload();
   }, 500);
 }
+
+function initializeTabSystem() {
+  const buttons = document.querySelectorAll('.tab-button');
+  const contents = document.querySelectorAll('.tab-content');
+
+  myLog("addEventListener for buttons: "+buttons.length);
+  buttons.forEach(button => {
+    myLog("addEventListener for button: "+button.id);
+
+    button.addEventListener('click', () => {
+      const targetTab = button.getAttribute('data-tab');
+      if(targetTab==null) throw new Error("targetTab is null");
+
+      // すべてのボタンとコンテンツから active クラスを削除
+      buttons.forEach(btn => btn.classList.remove('active'));
+      contents.forEach(content => content.classList.remove('active'));
+
+      // クリックされたボタンと対応するコンテンツに active クラスを追加
+      button.classList.add('active');
+      const targetContent = document.getElementById(targetTab);
+      if(targetContent==null) throw new Error("targetContent is null");
+      targetContent.classList.add('active');
+    });
+  });
+}
+

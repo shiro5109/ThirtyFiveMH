@@ -5,8 +5,24 @@ import { SummaryVM } from "../summarize/SummaryVM.js";
 import { Budget } from "./Budget.js";
 import { Calendar35 } from "./Calendar35.1.js";
 import { Payment } from "./Payment.1.js";
+import { EditExpense } from "../editExpense/EditExpense.js";
 
 export class Data {
+    /**
+     * @param {Payment} payment
+     */
+    DeletePayment(payment) {
+        const index = this.payments.indexOf(payment);
+        if (index > -1) {
+            this.payments.splice(index, 1);
+        }
+    }
+    /**
+     * @param {EditExpense} editExpense
+     */
+    DrawPaymentLows(editExpense) {
+      this.payments.forEach(payment => editExpense.DrawPaymentRow(payment));
+    }
     /**
      * @param {Calendar35} calendar35
      * @param {(() => void)} saveFunction
@@ -89,7 +105,7 @@ export class Data {
    * @param {string} type
    */
     addPayment2(date, amount,type) {
-        this.payments.push({ date, amount, type });
+        this.payments.push({ date, amount, type ,comment:""});
     }
 
     /**

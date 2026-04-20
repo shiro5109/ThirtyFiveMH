@@ -191,3 +191,21 @@ table#calendarTable th, table#calendarTable td {
 .tab-content.active {
   display: block;
 }
+
+#tableEditExpense{
+	width: 90%;
+	max-width: 900px;
+	margin: 0 auto;
+	text-align: center;
+	table-layout: fixed;
+	border-collapse: collapse;     /* 重要：これを追加 */
+	border: 1px solid #333;
+}
+
+/* 縦の内側罫線（セル間の縦線） */
+#tableEditExpense th,
+#tableEditExpense td {
+    border-left: 1px solid #333;   /* 左側に縦線 */
+    border-right: 1px solid #333;  /* 右側に縦線 */
+    padding: 8px 6px;              /* 見やすさのために調整（任意） */
+}
