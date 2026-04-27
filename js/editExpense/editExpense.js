@@ -5,6 +5,16 @@ import { ExpenseTypes, valueToLabel } from "../logic/ExpenseTypes.js";
 import { Payment } from "../logic/Payment.1.js";
 
 export class EditExpense {
+  ResetTable() {
+    const table = document.getElementById("tableEditExpense");
+    if(!table) throw new Error("expenseTable not found");
+    if(!(table instanceof HTMLTableElement)) throw new Error("expenseTable is not a table");
+
+    //remove existing rows except header
+    while (table.rows.length > 1) {
+      table.deleteRow(1);
+    }
+  }
   /**
    * @param {Payment} payment
    */

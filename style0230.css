@@ -184,7 +184,6 @@ table#calendarTable th, table#calendarTable td {
 /* タブコンテンツ */
 .tab-content {
   display: none;
-  padding: 30px;
   min-height: 200px;
 }
 

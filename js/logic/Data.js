@@ -21,6 +21,7 @@ export class Data {
      * @param {EditExpense} editExpense
      */
     DrawPaymentLows(editExpense) {
+      editExpense.ResetTable();
       this.payments.forEach(payment => editExpense.DrawPaymentRow(payment));
     }
     /**
