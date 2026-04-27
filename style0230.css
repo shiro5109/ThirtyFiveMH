@@ -207,6 +207,8 @@ table#calendarTable th, table#calendarTable td {
 #tableEditExpense td {
     border-left: 1px solid #333;   /* 左側に縦線 */
     border-right: 1px solid #333;  /* 右側に縦線 */
+	border-top: 1px solid #333;    /* 上側に横線 */
+	border-bottom: 1px solid #333; /* 下側に横線 */
     padding: 8px 6px;              /* 見やすさのために調整（任意） */
 }
 
