@@ -9,7 +9,7 @@ import { BudgetDialog } from "./js/summarize/budgetDialog.js";
 import { CalendarCell } from "./js/calendar/CalendarCell.js";
 import { renderTable } from "./js/summarize/renderTable.2.js";
 import { loadComponent } from "./js/common/loadComponent.js";
-import { EditExpense } from "./js/editExpense/EditExpense.js";
+import { EditExpense } from "./js/editExpense/editExpense.js";
 
 let log="start log";
 await main();

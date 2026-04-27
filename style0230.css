@@ -209,3 +209,7 @@ table#calendarTable th, table#calendarTable td {
     border-right: 1px solid #333;  /* 右側に縦線 */
     padding: 8px 6px;              /* 見やすさのために調整（任意） */
 }
+
+#memoInput {
+	margin-top: 1em;
+}

@@ -55,8 +55,12 @@ export class DialogOverLay {
 
         console.log(amount, type);
 
+        const memoInput = document.getElementById("memoInput");
+        if(!(memoInput instanceof HTMLInputElement)) throw new Error("memoInput not found");
+        const comment = memoInput.value;
+
         if(this.date==null) throw new Error("date is null");
-        this.data.addPayment2(this.date, amount, type);
+        this.data.addPayment2(this.date, amount, type,comment);
 
         localStorage.setItem("data", JSON.stringify(this.data));
 

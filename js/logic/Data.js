@@ -5,7 +5,7 @@ import { SummaryVM } from "../summarize/SummaryVM.js";
 import { Budget } from "./Budget.js";
 import { Calendar35 } from "./Calendar35.1.js";
 import { Payment } from "./Payment.1.js";
-import { EditExpense } from "../editExpense/EditExpense.js";
+import { EditExpense } from "../editExpense/editExpense.js";
 
 export class Data {
     /**
@@ -30,16 +30,12 @@ export class Data {
      * @param {BudgetDialog} budgetDialog
      */
     CreateSummaryVM(calendar35,saveFunction,refreshFunction,budgetDialog) {
-        // @ts-ignore
-//        this.budgets=[];//TODO
         if(!this.budgets){
-            // @ts-ignore
             this.budgets=[];
         }
         let budget=this.budgets.find(b=>b.month35.year===calendar35.year && b.month35.month===calendar35.month);
         if(!budget){
             budget=new Budget(calendar35,[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]);
-            // @ts-ignore
             this.budgets.push(budget);
         }
         return new SummaryVM(
@@ -51,17 +47,20 @@ export class Data {
     static fromJSON(data2) {
       const obj = typeof data2 === 'string' ? JSON.parse(data2) : data2;
       
-      // @ts-ignore
       return new Data(
-        // @ts-ignore
         (obj.payments || []).map(
-            // @ts-ignore
-            p => ({ date: new Date(p.date), amount: p.amount, type: p?.type })
+            (
+                /** @type {{ date: string | number | Date; amount: any; type: any; comment: any; }} */ 
+                p) => ({
+                     date: new Date(p.date), 
+                     amount: p.amount, 
+                     type: p?.type,
+                     comment: p?.comment })
         ),
-        // @ts-ignore
         (obj.budgets || []).map(
-            // @ts-ignore
-            b => new Budget(
+            (
+                /** @type {{ month35: { year: number; month: number; }; weekBudgets: any; medicalBudgets: any; luxBudgets: any; }} */ 
+                b) => new Budget(
                 new Calendar35(b.month35.year, b.month35.month),
                 b.weekBudgets || [0,0,0,0,0],
                 b.medicalBudgets || [0,0,0,0,0],
@@ -73,7 +72,11 @@ export class Data {
 
     toJSON() {
       return {
-        payments: this.payments.map(p => ({ date: p.date.toISOString(), amount: p.amount, type: p?.type })),
+        payments: this.payments.map(
+            p => ({ date: p.date.toISOString(),
+                 amount: p.amount, 
+                 type: p?.type,
+                 comment: p?.comment })),
         budgets:(this.budgets || []).map(b=>({month35:{year:b.month35.year,month:b.month35.month},weekBudgets:b.foodBudgets}))
       };
     }
@@ -93,19 +96,13 @@ export class Data {
     payments = [];
 
     /**
-     * @param {Payment} payment
-     */
-    addPayment(payment) {
-        this.payments.push(payment);
-    }
-
-    /**
    * @param {Date} date
    * @param {number} amount
    * @param {string} type
+   * @param {string} comment
    */
-    addPayment2(date, amount,type) {
-        this.payments.push({ date, amount, type ,comment:""});
+    addPayment2(date, amount,type,comment) {
+        this.payments.push({ date, amount, type ,comment});
     }
 
     /**
