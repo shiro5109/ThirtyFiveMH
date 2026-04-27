@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>35 ice cream -MH-</title>
-    <link rel="stylesheet" href="style0221.css">
+    <link rel="stylesheet" href="style0230.css">
     <link rel="manifest" href="manifest.json">
 </head>
 
@@ -14,9 +14,11 @@
         <table id="modeSwitch">
             <thead>
                 <tr>
-                    <th><button id="calButton">カレンダー</button></th>
-                    <th><button id="paymentDetailButton" type="button">変動費履歴</button></th>
-                    <th><button id="fixedCostButton" type="button">固定費</button></th>
+                    <th><button id="calButton" class="tab-button active" 
+                        data-tab="tabCalendar">カレンダー</button></th>
+                    <th><button id="paymentDetailButton" type="button" class="tab-button" 
+                        data-tab="tabEditExpense">削除画面へ</button></th>
+                    <th><button id="fixedCostButton" type="button" class="hidden">固定費</button></th>
                 </tr>
             </thead>
         </table>
@@ -31,49 +33,19 @@
             <button id="next">翌月</button>
         </div>
 
-        <div id="calendarWrapper">
-            <table id="calendarTable">
-                <thead>
-                    <tr>
-                        <th>月</th>
-                        <th>火</th>
-                        <th>水</th>
-                        <th>木</th>
-                        <th>金</th>
-                        <th>土</th>
-                        <th>日</th>
-                    </tr>
-                </thead>
-                <tbody id="calendarBody"><!--js--></tbody>
-            </table>
+        <!-- タブコンテンツ -->
+        <div class="tab-contents">
+            <div id="tabCalendar" class="tab-content active">
+                <div id="calendarWrapper"></div><!--component html-->
+                <div id="budgetTable2" class="budgetTable"></div><!--component html-->
+            </div>
+            <div id="tabEditExpense" class="tab-content">
+            </div>
         </div>
 
-        <div class="budgetTable">
-            <table id="budgetTable">
-                <thead>
-                    <tr id="budgetHeader">
-                        <th></th>
-                        <th>週1</th>
-                        <th>週2</th>
-                        <th>週3</th>
-                        <th>週4</th>
-                        <th>週5</th>
-                        <th>計</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- JSで行を追加 -->
-                </tbody>
-            </table>
-        </div>
-
-<!--        <button id="recalculate">再計算</button>-->
-
-        <div id="appName">
-        35 ice cream -MH-
-        </div>
+        <div id="appName">35 ice cream -MH-</div>
         <div class="version">
-            ver 0.221
+            ver 0.230
             <button id="updateButton">最新版に更新</button>
         </div>
         <div id="develop">
@@ -81,22 +53,14 @@
             <button id="clearCacheButton">開発用キャッシュ削除</button>
         </div>
 
-    </div>
+        <div id="dialogOverlay" class="hidden"></div>
 
-    <div id="dialogOverlay" class="hidden">
-        <div id="inputDialog">
-            <button id="cancelBtn">キャンセル</button>
-            <input type="text" id="amountInput" placeholder="金額" inputmode="numeric">
-            <select id="typeSelect"></select>
-            <button id="saveBtn">保存</button>
-        </div>
-    </div>
-
-    <div id="budgetDialogOverlay" class="hidden">
-        <div id="budgetInputDialog">
-            <button id="budgetCancelBtn">キャンセル</button>
-            <input type="text" id="budgetAmountInput" placeholder="金額" inputmode="numeric">
-            <button id="budgetSaveBtn">保存</button>
+        <div id="budgetDialogOverlay" class="hidden">
+            <div id="budgetInputDialog">
+                <button id="budgetCancelBtn">キャンセル</button>
+                <input type="text" id="budgetAmountInput" placeholder="金額" inputmode="numeric">
+                <button id="budgetSaveBtn">保存</button>
+            </div>
         </div>
     </div>
 
